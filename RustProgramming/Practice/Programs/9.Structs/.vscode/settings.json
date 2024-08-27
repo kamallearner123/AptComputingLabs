@@ -1,0 +1,27 @@
+{
+	"rust-analyzer.linkedProjects": [
+		{
+			"sysroot": "",
+			"crates": [
+				{
+					"root_module": "struct_basic1.rs",
+					"display_name": "struct_basic1",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_tuple_like.rs",
+					"display_name": "struct_tuple_like",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_impl.rs",
+					"display_name": "struct_impl",
+					"edition": "2021",
+					"deps": []
+				}
+			]
+		}
+	]
+}

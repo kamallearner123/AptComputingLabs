@@ -6,6 +6,119 @@
     <title>Apt Computing Labs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apt Computing Labs</title>
+    <style>
+        /* Scrolling strap announcement */
+        .scrolling-strap {
+            background-color: #0056b3; /* Thick blue background */
+            color: white; /* White text color */
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .scrolling-strap p {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 1em;
+            animation: scroll 20s linear infinite;
+            margin: 0;
+            padding-left: 100%; /* Start off-screen */
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Add padding to the body to avoid overlap */
+        body {
+            padding-top: 30px; /* Equal to the height of the scrolling strap */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scrolling Announcement Strap -->
+    <div class="scrolling-strap">
+        <p>Welcome to Apt Computing Labs! Join our next Rust programming session starting soon. Sign up now!</p>
+    </div>
+
+    <!-- Other sections of your webpage go here -->
+
+</body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apt Computing Labs</title>
+    <style>
+        /* Scrolling strap announcement */
+        .scrolling-strap {
+            background-color: #0056b3; /* Thick blue background */
+            color: white; /* White text color */
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .scrolling-strap p {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 1em;
+            animation: scroll 40s linear infinite;
+            margin: 0;
+            padding-left: 10%; /* Start off-screen */
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Add padding to the body to avoid overlap */
+        body {
+            padding-top: 30px; /* Equal to the height of the scrolling strap */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scrolling Announcement Strap -->
+    <div class="scrolling-strap">
+        <p>Welcome to Apt Computing Labs! Join our next Rust programming session starting soon. Sign up now!</p>
+    </div>
+
+    <div class="scrolling-strap">
+        <p>Welcome to Apt Computing Labs! Join our next Rust programming session starting soon. Sign up now!</p>
+    </div>
+
+    <!-- Other sections of your webpage go here -->
+
+</body>
+
 <body>
     <header>
         <h1>Apt Computing Labs</h1>
@@ -26,7 +139,7 @@
         <p>Welcome to Apt Computing Labs. We offer training in Rust, system programming, Python, C, and C++. Join us to enhance your skills and work on live projects!</p>
     </section>
 
-    <section id="upcoming-sessions">
+    <!--section id="upcoming-sessions">
         <h2>Upcoming Sessions</h2>
         <img src="path/to/upcoming-sessions-image.jpg" alt="Upcoming Sessions Image">
         <ul>
@@ -34,7 +147,55 @@
             <li>Advanced C++ Techniques - 17th September</li>
             <li>Python for System Programming - 24th September</li>
         </ul>
+    </section-->
+
+    <section id="upcoming-sessions">
+        <h2>Upcoming Sessions</h2>
+        <img src="path/to/upcoming-sessions-image.jpg" alt="Upcoming Sessions Image">
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Tutor</th>
+                    <th>Duration</th>
+                    <th>Cost</th>
+                    <th>Type (online/in-class)</th>
+                    <th>Topics in Brief</th>
+                    <th>Link to Full Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rust Programming Basics</td>
+                    <td>John Doe</td>
+                    <td>2 Weeks</td>
+                    <td>$200</td>
+                    <td>Online</td>
+                    <td>Ownership, Borrowing, Concurrency</td>
+                    <td><a href="link-to-rust-course">View Course</a></td>
+                </tr>
+                <tr>
+                    <td>Advanced C++ Techniques</td>
+                    <td>Jane Smith</td>
+                    <td>3 Weeks</td>
+                    <td>$250</td>
+                    <td>In-Class</td>
+                    <td>Templates, Smart Pointers, Multithreading</td>
+                    <td><a href="link-to-cpp-course">View Course</a></td>
+                </tr>
+                <tr>
+                    <td>Python for System Programming</td>
+                    <td>Alex Brown</td>
+                    <td>1 Week</td>
+                    <td>$150</td>
+                    <td>Online</td>
+                    <td>Scripting, Automation, Networking</td>
+                    <td><a href="link-to-python-course">View Course</a></td>
+                </tr>
+            </tbody>
+        </table>
     </section>
+    
 
     <section id="live-projects">
         <h2>Live Projects</h2>

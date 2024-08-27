@@ -15,7 +15,7 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 5em;
 }
 
 nav ul {
@@ -85,4 +85,32 @@ form {
 
 input[type="file"] {
     margin-right: 10px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #0056b3; /* Thick blue border around the table */
+}
+
+th, td {
+    border: 1px solid #0056b3; /* Thick blue borders between cells */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #0056b3; /* Thick blue background for headers */
+    color: white; /* White text color */
+}
+
+td a {
+    color: #add8e6; /* Light blue text color */
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
 }
