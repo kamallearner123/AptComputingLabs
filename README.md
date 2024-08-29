@@ -1,6 +1,6 @@
 # Welcome to My Learning Repository
 
-This a group who love to share their knowledge with those who are passionate about continuous learning. This repository is open to all who are eager to upgrade their skills in C/C++/Rust/Python, along with system programming and tools that help improve the quality of our daily work or introduce new practices in our teams.
+This repository is open to all who are eager to upgrade their skills in C/C++/Rust/Python, along with system programming and tools that help improve the quality of our daily work or introduce new practices in our teams.
 
 ## What's Inside
 
