@@ -20,6 +20,18 @@
 					"display_name": "struct_impl",
 					"edition": "2021",
 					"deps": []
+				},
+				{
+					"root_module": "tuple_structs/tuple_strucut_basic.rs",
+					"display_name": "tuple_structs_tuple_strucut_basic",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "misc/strucut_padding.rs",
+					"display_name": "misc_strucut_padding",
+					"edition": "2021",
+					"deps": []
 				}
 			]
 		}

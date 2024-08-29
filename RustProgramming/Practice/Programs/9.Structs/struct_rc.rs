@@ -21,7 +21,6 @@ fn main() {
     println!("peter details: {:?}", peter);
     // error[E0382]: borrow of partially moved value: `david`
     println!("david details: {:?}", david);
-    //println!("john details: {:?}", john);
 }
 
 
