@@ -3,4 +3,4 @@ Rust Prgoramming
 Site: https://alastairreid.github.io/RelatedWork/notes/rust-language/
 System Software for Linux using Rust: https://www.youtube.com/watch?v=atE94jvfVuA
 Podcasts: https://tim.mcnamara.nz/post/758930152514306048/the-amazing-rust-podcasts-that-have-emerged-in
-
+_
