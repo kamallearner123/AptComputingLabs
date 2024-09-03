@@ -32,6 +32,120 @@
 					"display_name": "misc_strucut_padding",
 					"edition": "2021",
 					"deps": []
+				},
+				{
+					"root_module": "tuple_structs/ownership/strucut_ownership.rs",
+					"display_name": "tuple_structs_ownership_strucut_ownership",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "ownership/stack_heap_allocation.rs",
+					"display_name": "ownership_stack_heap_allocation",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "basics/struct_basic1.rs",
+					"display_name": "basics_struct_basic1",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "basics/struct_impl.rs",
+					"display_name": "basics_struct_impl",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "tuple_structs/struct_tuple_like.rs",
+					"display_name": "tuple_structs_struct_tuple_like",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "misc/struct_rc.rs",
+					"display_name": "misc_struct_rc",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "tuple_structs/impl/impl_methods.rs",
+					"display_name": "tuple_structs_impl_impl_methods",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "tuple_structs/impl/all_types_of_methods.rs",
+					"display_name": "tuple_structs_impl_all_types_of_methods",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "misc/strucut_serde/strucut_serialization.rs",
+					"display_name": "misc_strucut_serde_strucut_serialization",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "simpleGame.rs",
+					"display_name": "simplegame",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "snakeGames/src/main.rs",
+					"display_name": "snakegames_src_main",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_serde/strucut_serialization_server.rs",
+					"display_name": "struct_serde_strucut_serialization_server",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_serde/strucut_serialization_client.rs",
+					"display_name": "struct_serde_strucut_serialization_client",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_serde/client_server_mod.rs",
+					"display_name": "struct_serde_client_server_mod",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_traits/sample_trait.rs",
+					"display_name": "struct_traits_sample_trait",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_basic1.rs",
+					"display_name": "struct_basic1",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_impl.rs",
+					"display_name": "struct_impl",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_rc.rs",
+					"display_name": "struct_rc",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "struct_tuple_like.rs",
+					"display_name": "struct_tuple_like",
+					"edition": "2021",
+					"deps": []
 				}
 			]
 		}
