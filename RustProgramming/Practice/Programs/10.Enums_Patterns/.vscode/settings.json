@@ -1,0 +1,21 @@
+{
+	"rust-analyzer.linkedProjects": [
+		{
+			"sysroot": "",
+			"crates": [
+				{
+					"root_module": "Basics/enums_1.rs",
+					"display_name": "basics_enums_1",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "Basics/enums_multiple_datatypes.rs",
+					"display_name": "basics_enums_multiple_datatypes",
+					"edition": "2021",
+					"deps": []
+				}
+			]
+		}
+	]
+}
