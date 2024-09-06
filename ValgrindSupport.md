@@ -3,7 +3,7 @@ Valgrind is a powerful tool used to detect memory-related issues in programs, su
 
 This command checks for memory errors, leaks, and invalid memory usage.
 
-bash
+
 
 valgrind --leak-check=full ./your_program
 
@@ -13,7 +13,7 @@ valgrind --leak-check=full ./your_program
 
 Use the memcheck tool (default Valgrind tool) to detect uninitialized memory usage, invalid memory reads/writes, etc.
 
-bash
+
 
 valgrind --tool=memcheck --track-origins=yes ./your_program
 
@@ -23,7 +23,7 @@ valgrind --tool=memcheck --track-origins=yes ./your_program
 
 This command checks for memory leaks and summarizes them.
 
-bash
+
 
 valgrind --leak-check=full --show-leak-kinds=all ./your_program
 
@@ -33,7 +33,7 @@ valgrind --leak-check=full --show-leak-kinds=all ./your_program
 
 If you want to check for heap memory corruption or misuse, you can use the following:
 
-bash
+
 
 valgrind --tool=memcheck --leak-check=full --track-fds=yes ./your_program
 
@@ -43,7 +43,7 @@ valgrind --tool=memcheck --leak-check=full --track-fds=yes ./your_program
 
 By default, Valgrind detects invalid reads/writes that overflow a memory buffer on both the stack and heap.
 
-bash
+
 
 valgrind --tool=memcheck --error-exitcode=1 ./your_program
 
@@ -53,7 +53,7 @@ valgrind --tool=memcheck --error-exitcode=1 ./your_program
 
 Valgrind sometimes reports false positives (e.g., in third-party libraries). You can generate a suppression file to ignore those:
 
-bash
+
 
 valgrind --gen-suppressions=all --leak-check=full ./your_program
 
@@ -63,7 +63,7 @@ valgrind --gen-suppressions=all --leak-check=full ./your_program
 
 You can use the cachegrind tool to analyze cache behavior, branch predictions, and more:
 
-bash
+
 
 valgrind --tool=cachegrind ./your_program
 
@@ -71,7 +71,7 @@ valgrind --tool=cachegrind ./your_program
 
 If you're working with multithreading and want to detect threading-related issues, use the helgrind tool:
 
-bash
+
 
 valgrind --tool=helgrind ./your_program
 
@@ -79,7 +79,7 @@ valgrind --tool=helgrind ./your_program
 
 For performance profiling, use the callgrind tool:
 
-bash
+
 
 valgrind --tool=callgrind ./your_program
 
