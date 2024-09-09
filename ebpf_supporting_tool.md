@@ -4,7 +4,7 @@ sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
 sudo apt-get install python3-bpfcc
 
 ## Sample python code
-'''
+```
 from bcc import BPF
 import sys
 
@@ -55,4 +55,5 @@ try:
         counts.clear()
 except KeyboardInterrupt:
     print("Detaching BPF program...")
-'''
+
+```
