@@ -1,0 +1,57 @@
+
+To ensure that Ubuntu maintains network connectivity even when the system is locked or goes idle, you can adjust some settings to prevent the network from disconnecting during idle/lock state without completely disabling sleep. Here's how you can do it:
+
+Option 1: Disable Wi-Fi Power Management
+Ubuntu may turn off the Wi-Fi to save power during idle or when the system is locked. You can disable this feature.
+
+Steps:
+Check Power Management Status: Open a terminal and check the current power management setting:
+
+bash
+Copy code
+iwconfig
+Look for your Wi-Fi interface (e.g., wlan0) and see if Power Management is listed as "On."
+
+Disable Power Management: To turn off Wi-Fi power management, create a configuration file to apply this setting on boot.
+
+bash
+Copy code
+sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+Edit/Add the Following Line:
+
+bash
+Copy code
+[connection]
+wifi.powersave = 2
+Save the file and exit (Ctrl + O to save, Ctrl + X to exit).
+
+Restart NetworkManager:
+
+bash
+Copy code
+sudo systemctl restart NetworkManager
+This should ensure that Wi-Fi remains connected even when the system is idle or locked.
+
+Option 2: Modify Systemd Sleep Settings to Keep Network Active
+To prevent the system from disabling networking during idle states, you can modify some power management configurations using systemd.
+
+Steps:
+Open the Systemd Sleep Configuration: Edit the sleep configuration file:
+
+bash
+Copy code
+sudo nano /etc/systemd/logind.conf
+Modify the Following Parameters:
+
+Ensure that the following parameters are uncommented and set to "ignore":
+bash
+Copy code
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+IdleAction=ignore
+Restart systemd-logind: After saving the changes, restart the logind service:
+
+bash
+Copy code
+sudo systemctl restart systemd-logind
+This should help to maintain network connections when the system is locked or goes idle.
