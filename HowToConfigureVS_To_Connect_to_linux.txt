@@ -1,0 +1,18 @@
+How access linux projects from MAC
+====== VS setting ======
+1) Install Remote-SSH in VS
+2) Comd+Shift+p
+  Remote-SSH: Connect to host
+3) It shows the option added in ~/.ssh/config
+4) Select the host
+
+===== SSH settings =====
+$ sudo vim ~/.ssh/config
+  - Copy the below lines -
+  Host my-linux-machine
+    HostName 192.168.0.117
+    User kamal
+    IdentityFile ~/.ssh/id_rsa
+$ ssh-keygen -t rsa -b 4096 -C "kamal_acl@outlook.com"   //Generating PubKey/PvtKey
+                                                          // It generate key in /Users/kamalmukiri/.ssh/id_rsa.pub
+$ ssh-copy-id kamal@192.168.0.117 //Copying Key to Server
