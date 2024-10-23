@@ -1,0 +1,100 @@
+Signature length ?
+
+
+Message Authentication Code?
+
+message => Hash function => Encrpt(Digest + Private Key) => Message + MAC (Signature)  --------- Descrypt(MAC)
+
+Principle PKI ?
+
+
+
+key provisioning?
+
+Incert -----keys (symmetric: Root key)-----> Local server (Hamran Production) ----keys (Root key)-----> Target(Security module: In ConMod board)
+
+-> Local server generates KCV and sends to Target.
+-> Through Key Checksum Value, we validate key integrity.
+-> Key stored on Flash
+-> Key blob contains: The Key is encrypted Using Chip Sepcific Key is called Key blob
+-> this is master key for the communication betweem IOC and V2X
+
+VKMS training:
+Audi server <=======> ConMod (VIN)
+-> Audi server creates certs using VIN and keeps in DLC (ConMod)
+-> Finally certs are stored in V2X.
+-> V2X uses thrid party
+
+DLC: Download Container
+
+
+RSTP master key
+
+==========
+hello, ssc marks + kiran certificate (public key, signture done by)
+
+
+Kiran ==== hello, ssc marks, public key ==> CA (1. Generates digest, 2. Encrypts with his Private Key)
+
+Kiran               =====> hello, ssc marks, public key, Signature: (Encrypts with his Private Key), CA details
+1) Server Authentication: Done
+Genrate symmetric key (0xAABBCCDD)
+Encrpt(Key, Kiran's Public) 0xFFDDCCAA =========> Kiran Decrypt(0xFFDDCCAA, Pvt Key) = 0xAABBCCDD (symmetric key)
+2) Client Authentication
+Kamal ========= certificate (Kamal's details + CA Signature+ Kamal Pub Key) ====> Google
+
+
+Principles:
+1) Server, Client Authentication
+2) Confidential
+3) Integrity
+
+
+
+
+---
+
+CA ======> Encrypts with his Private Key + CA details
+
+pvt Key + Pub Key
+
+At receiver:
+Assume: he has Verison CA certificate.
+1) Date validation, Get CA details (Verizon)
+2) Decrypt (Signature, Pub Key of Verizon) => O/P Digest
+3) Generates digest with (hello, ssc marks, public key) 
+4) Output of step 2 and 3 must be same.
+Validation of senders certificate is Successful
+
+
+1) using pub + pvt 
+2) symmetric Encrpt
+3) kiran ==== encrypted(msg, pvt key) ====> Kamal Decrypt(sipher): msg
+
+
+Hash(Info+prev Digest)
+
+k-a:100 ->  a->b:50  -> a->c:50 -> c->d:50
+Hash1       hash2       hash3      hash4
+a: 100      a: 50       a: 0        
+   
+
+
+hash2 = Hash(info2, Hash1)
+
+
+====================================
+
+RPMB - Replay Protected Memory Block. Used to keep secure Keys, sensitive info.
+1) Protects from replay
+2) Authentication
+
+
+
+
+
+Terminologies:
+=============
+MAC - Message Authentication Code
+REE - Rich Ececution Env
+TEE - Trusted Ececution Env
