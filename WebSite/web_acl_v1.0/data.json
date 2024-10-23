@@ -7,46 +7,59 @@
     "upcomingSessions": [
         {
             "courseName": "Rust Programming Basics",
-            "tutor": "John Doe",
-            "duration": "2 Weeks",
-            "cost": "$2000",
+            "tutor": "Kamal Kumar",
+            "duration": "24 Hours",
+            "cost": "Rs. 5000",
             "type": "Online",
-            "topics": "Ownership, Borrowing, Concurrency",
-            "link": "link-to-rust-course"
+            "topics": "Ownership, Borrowing, Concurrency, Error Handling, Traits, Lifetimes, Cargo, Crates, Modules, Testing, Documentation, Macros, Unsafe Code, FFI",
+            "link": ""
         },
         {
-            "courseName": "Advanced C++ Techniques",
-            "tutor": "Jane Smith",
-            "duration": "3 Weeks",
-            "cost": "$250",
-            "type": "In-Class",
-            "topics": "Templates, Smart Pointers, Multithreading",
-            "link": "link-to-cpp-course"
+            "courseName": "C Programming for Beginners",
+            "tutor": "Kamal Kumar",
+            "duration": "24 Hours",
+            "cost": "Rs. 5000",
+            "type": "Online",
+            "topics": "Basics, Data Types, Operators, Control Structures, Functions, Arrays, Pointers, Strings, Structures, File Handling",
+            "link": ""
         },
         {
             "courseName": "Python for System Programming",
-            "tutor": "Alex Brown",
-            "duration": "1 Week",
-            "cost": "$150",
+            "tutor": "Kamal Kumar",
+            "duration": "24 Hours",
+            "cost": "Rs. 6000",
             "type": "Online",
-            "topics": "Scripting, Automation, Networking",
-            "link": "link-to-python-course"
+            "topics": "Basics, Scripting, Automation, Networking",
+            "link": ""
+        },       
+        {
+            "courseName": "Advanced C++ Programming",
+            "tutor": "Kamal Kumar",
+            "duration": "24 Hours",
+            "cost": "Rs. 6000",
+            "type": "Online",
+            "topics": "OOP, Templates, STL, Exception Handling, File I/O, Multithreading, Smart Pointers, Lambda Expressions",
+            "link": ""
         }
     ],
     "liveProjects": [
         "Embedded Systems with Rust",
-        "Networking with Python",
-        "System Programming with C"
+        "Block Chain with Rust",
+        "AutoSAR IDS with Rust"
     ],
     "gallery": [
         {
             "image": "gallery/KamalPhoto.jpg",
-            "description": "Description for Image 1"
+            "description": "Trainer: Kamal Kumar Mukiri (16 years S/W Industry Experience)"
+        },
+        {
+            "image": "gallery/rust8244.webp",
+            "description": "Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety."
         }
     ],
     "contactDetails": {
-        "email": "info@aptcomputinglabs.com",
-        "phone": "+1 (555) 123-4567",
-        "address": "1234 Tech Park, Bangalore, India"
+        "email": "kamal_acl@outlook.com",
+        "phone": "+91 9739858111",
+        "address": "Prestige Royale Gardens, Yelahanka, Bangalore, India"
     }
 }
