@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apt Computing Labs</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Scrolling strap announcement */
+        .scrolling-strap {
+            background-color: #0056b3;
+            color: white;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .scrolling-strap p {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 1em;
+            animation: scroll 20s linear infinite;
+            margin: 0;
+            padding-left: 100%; /* Start off-screen */
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        body {
+            padding-top: 30px; /* Equal to the height of the scrolling strap */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Scrolling Announcement Strap -->
+    <div class="scrolling-strap">
+        <p>Welcome to Apt Computing Labs! Join our next Rust programming session starting soon. Sign up now!</p>
+    </div>
+
+    <header>
+        <h1>Apt Computing Labs</h1>
+        <nav>
+            <ul>
+                <li><a href="#summary">Summary</a></li>
+                <li><a href="#upcoming-sessions">Upcoming Sessions</a></li>
+                <li><a href="#live-projects">Live Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact-details">Contact Details</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="summary">
+        <h2>Summary</h2>
+        <img id="summary-image" alt="Summary Image">
+        <p id="summary-description"></p>
+    </section>
+
+    <section id="upcoming-sessions">
+        <h2>Upcoming Sessions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Tutor</th>
+                    <th>Duration</th>
+                    <th>Cost</th>
+                    <th>Type (online/in-class)</th>
+                    <th>Topics in Brief</th>
+                    <th>Enquire About the Course</th>
+                </tr>
+            </thead>
+            <tbody id="sessions-body"></tbody>
+        </table>
+    </section>
+
+    <section id="live-projects">
+        <h2>Live Projects</h2>
+        <p>Engage with real-world projects to apply your knowledge. Check out our ongoing projects below:</p>
+        <ul id="live-projects-list"></ul>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="carousel">
+            <div class="carousel-images" id="gallery-images"></div>
+            <button class="carousel-button left" id="prevBtn">&#10094;</button>
+            <button class="carousel-button right" id="nextBtn">&#10095;</button>
+        </div>
+    </section>
+
+    <section id="contact-details">
+        <h2>Contact Details</h2>
+        <div class="contact-container">
+            <div id="contact-info"></div>
+            <div class="enquiry-form-container">
+                <h3>Enquiry Form</h3>
+                <form id="enquiry-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <br>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required style="width: 100%; height: 100px;"></textarea>
+                    <input type="submit" value="Send Enquiry">
+                </form>
+                <div id="response-message" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2024 Apt Computing Labs. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script>
+        // EmailJS initialization
+        (function() {
+            emailjs.init("3ogh2gaZPebZ6K-Zz"); // Replace with your EmailJS user ID
+        })();
+
+        // Fetch data from JSON
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Update summary section
+                document.getElementById('summary-image').src = data.summary.image;
+                document.getElementById('summary-description').innerText = data.summary.description;
+
+                // Update upcoming sessions
+                const sessionsBody = document.getElementById('sessions-body');
+                data.upcomingSessions.forEach(session => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${session.courseName}</td>
+                        <td>${session.tutor}</td>
+                        <td>${session.duration}</td>
+                        <td>${session.cost}</td>
+                        <td>${session.type}</td>
+                        <td>${session.topics}</td>
+                        <td><a href="#contact-details">Enquire</a></td>
+                    `;
+                    sessionsBody.appendChild(row);
+                });
+
+                // Update live projects
+                const liveProjectsList = document.getElementById('live-projects-list');
+                data.liveProjects.forEach(project => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = project;
+                    liveProjectsList.appendChild(listItem);
+                });
+
+                // Update contact details
+                document.getElementById('contact-info').innerHTML = `
+                    <p>For inquiries, please reach out:</p>
+                    <ul>
+                        <li>Email: ${data.contactDetails.email}</li>
+                        <li>Phone: ${data.contactDetails.phone}</li>
+                        <li>Address: ${data.contactDetails.address}</li>
+                    </ul>
+                `;
+
+                // Update gallery images and descriptions
+                const galleryImages = document.getElementById('gallery-images');
+                data.gallery.forEach((item, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('carousel-item');
+                    galleryItem.innerHTML = `
+                        <img src="${item.image}" alt="Image ${index + 1}">
+                        <div class="carousel-description">${item.description}</div>
+                    `;
+                    galleryImages.appendChild(galleryItem);
+                });
+
+                // Initialize carousel
+                let currentIndex = 0;
+                const totalItems = data.gallery.length;
+
+                function showImage(index) {
+                    const offset = -index * 100;
+                    galleryImages.style.transform = `translateX(${offset}%)`;
+                }
+
+                // Function to go to the next image
+                function nextImage() {
+                    currentIndex = (currentIndex + 1) % totalItems;
+                    showImage(currentIndex);
+                }
+
+                // Function to go to the previous image
+                function prevImage() {
+                    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                    showImage(currentIndex);
+                }
+
+                document.getElementById('nextBtn').addEventListener('click', nextImage);
+                document.getElementById('prevBtn').addEventListener('click', prevImage);
+
+                // Automatically change images every 5 seconds
+                setInterval(nextImage, 10000); // Change every 5000 milliseconds (5 seconds)
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+            document.getElementById('enquiry-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // EmailJS sending
+    emailjs.send("service_1grj8k4", "template_1inwn3u", {
+        name: name,
+        email: email,
+        message: message
+    }).then(function(response) {
+        alert("Enquiry sent successfully!");
+        console.log("Success!", response.status, response.text);
+    }, function(error) {
+        alert("Failed to send enquiry. Please try again.");
+        console.log("Failed...", error);
+    });
+
+    // Clear form fields
+    document.getElementById('enquiry-form').reset();
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+header {
+    background-color: #000; /* Black background */
+    color: #add8e6; /* Light blue text color */
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 5em;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000; /* Black background */
+    display: flex;
+    justify-content: center; /* Center the navigation */
+}
+
+nav ul li {
+    float: left;
+}
+
+
+nav ul li a {
+    display: block;
+    color: #add8e6; /* Light blue text color */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a1 {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #0056b3; /* Thick blue hover effect */
+}
+
+section {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-bottom: 3px solid #0056b3; /* Thick blue border */
+    padding-bottom: 10px;
+    color: #0056b3; /* Thick blue text color */
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #000; /* Black background */
+    color: #00f; /* Blue text color */
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="file"] {
+    margin-right: 10px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #0056b3; /* Thick blue border around the table */
+}
+
+th, td {
+    border: 1px solid #0056b3; /* Thick blue borders between cells */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #0056b3; /* Thick blue background for headers */
+    color: white; /* White text color */
+}
+
+td a {
+    color: #add8e6; /* Light blue text color */
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Specific item sizes */
+.item-large {
+    grid-column: span 2; /* Span 2 columns */
+    grid-row: span 2; /* Span 2 rows */
+}
+
+.item-wide {
+    grid-column: span 2; /* Span 2 columns */
+}
+
+.item-tall {
+    grid-row: span 2; /* Span 2 rows */
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 60%; /* Set to 60% of the parent container for a smaller size */
+    margin: 20px auto; /* Center the carousel */
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%; /* Show one image at a time */
+    box-sizing: border-box;
+    position: relative; /* Position for description */
+}
+
+.carousel img {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: Add border radius for aesthetics */
+}
+
+.carousel-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s; /* Smooth transition for hover */
+}
+
+.carousel-item:hover .carousel-description {
+    opacity: 1; /* Show description on hover */
+}
+
+/* Adjust button styles for better visibility */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7); /* Light background for buttons */
+    color: black; /* Dark text color for contrast */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px; /* Optional: Add border radius for aesthetics */
+}
+
+.carousel-button.left {
+    left: 10px;
+}
+
+.carousel-button.right {
+    right: 10px;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#contact-info {
+    flex: 1;
+    margin-right: 20px; /* Space between the contact info and enquiry form */
+}
+
+.enquiry-form-container {
+    flex: 1;
+}

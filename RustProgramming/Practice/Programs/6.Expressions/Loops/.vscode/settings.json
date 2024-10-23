@@ -1,0 +1,21 @@
+{
+	"rust-analyzer.linkedProjects": [
+		{
+			"sysroot": "",
+			"crates": [
+				{
+					"root_module": "TCPServer/tcpserver/src/main.rs",
+					"display_name": "tcpserver_tcpserver_src_main",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "TCPServer/tcpserver/src/server.rs",
+					"display_name": "tcpserver_tcpserver_src_server",
+					"edition": "2021",
+					"deps": []
+				}
+			]
+		}
+	]
+}

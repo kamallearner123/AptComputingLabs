@@ -1,0 +1,52 @@
+{
+    "summary": {
+        "title": "Summary",
+        "image": "path/to/summary-image.jpg",
+        "description": "Welcome to Apt Computing Labs. We offer training in Rust, system programming, Python, C, and C++. Join us to enhance your skills and work on live projects!"
+    },
+    "upcomingSessions": [
+        {
+            "courseName": "Rust Programming Basics",
+            "tutor": "John Doe",
+            "duration": "2 Weeks",
+            "cost": "$2000",
+            "type": "Online",
+            "topics": "Ownership, Borrowing, Concurrency",
+            "link": "link-to-rust-course"
+        },
+        {
+            "courseName": "Advanced C++ Techniques",
+            "tutor": "Jane Smith",
+            "duration": "3 Weeks",
+            "cost": "$250",
+            "type": "In-Class",
+            "topics": "Templates, Smart Pointers, Multithreading",
+            "link": "link-to-cpp-course"
+        },
+        {
+            "courseName": "Python for System Programming",
+            "tutor": "Alex Brown",
+            "duration": "1 Week",
+            "cost": "$150",
+            "type": "Online",
+            "topics": "Scripting, Automation, Networking",
+            "link": "link-to-python-course"
+        }
+    ],
+    "liveProjects": [
+        "Embedded Systems with Rust",
+        "Networking with Python",
+        "System Programming with C"
+    ],
+    "gallery": [
+        {
+            "image": "gallery/KamalPhoto.jpg",
+            "description": "Description for Image 1"
+        }
+    ],
+    "contactDetails": {
+        "email": "info@aptcomputinglabs.com",
+        "phone": "+1 (555) 123-4567",
+        "address": "1234 Tech Park, Bangalore, India"
+    }
+}
