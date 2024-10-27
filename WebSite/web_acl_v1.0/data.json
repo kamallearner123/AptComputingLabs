@@ -53,8 +53,20 @@
             "description": "Trainer: Kamal Kumar Mukiri (16 years S/W Industry Experience)"
         },
         {
-            "image": "gallery/rust8244.webp",
-            "description": "Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety."
+            "image": "gallery/MumbaiGL.jpeg",
+            "descritpion": "Delivered Python Training at Mumbai"
+        },
+        {
+            "image": "gallery/NLLRust.jpeg",
+            "description": "Non-Lexical Lifetimes in Rust"
+        },
+        {
+            "image": "gallery/TipsForTrainees.jpeg",
+            "description": "Tips before attending the training"
+        },
+        {
+            "image": "gallery/NTTF.jpeg",
+            "description": "Delivered C Training at NTTF"
         }
     ],
     "contactDetails": {

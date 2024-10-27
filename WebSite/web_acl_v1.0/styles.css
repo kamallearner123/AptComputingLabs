@@ -6,11 +6,13 @@ body {
     color: #333;
 }
 
+/* Styling for the header section */
 header {
-    background-color: #000; /* Black background */
-    color: #add8e6; /* Light blue text color */
-    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+    padding: 2rem;
     text-align: center;
+    border-radius: 8px;
 }
 
 header h1 {

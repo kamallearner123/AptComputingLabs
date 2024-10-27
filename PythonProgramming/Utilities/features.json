@@ -1,0 +1,67 @@
+{
+    "features": [
+      {
+        "id": 1,
+        "name": "Signature-Based Detection",
+        "description": "Detect known attacks by matching patterns in network traffic."
+      },
+      {
+        "id": 2,
+        "name": "Anomaly-Based Detection",
+        "description": "Detect unknown attacks by identifying traffic patterns that deviate from the norm."
+      },
+      {
+        "id": 3,
+        "name": "Real-Time Alerting",
+        "description": "Provide immediate alerts when potential threats are detected."
+      },
+      {
+        "id": 4,
+        "name": "Logging and Reporting",
+        "description": "Log detected attacks and generate periodic reports for analysis."
+      },
+      {
+        "id": 5,
+        "name": "False Positive Reduction",
+        "description": "Minimize the number of false positives to reduce unnecessary alerts."
+      },
+      {
+        "id": 6,
+        "name": "Integration with SIEM",
+        "description": "Seamlessly integrate with Security Information and Event Management (SIEM) systems."
+      }
+    ],
+    "non_functionalities": [
+      {
+        "id": 1,
+        "name": "Performance",
+        "description": "Ensure the IDS processes network traffic efficiently without causing delays."
+      },
+      {
+        "id": 2,
+        "name": "Scalability",
+        "description": "The system should scale with increasing network traffic and complexity."
+      },
+      {
+        "id": 3,
+        "name": "Reliability",
+        "description": "The IDS must operate continuously without crashes or downtime."
+      },
+      {
+        "id": 4,
+        "name": "Security",
+        "description": "The IDS system must itself be secure from attacks or compromises."
+      },
+      {
+        "id": 5,
+        "name": "Maintainability",
+        "description": "The system should be easy to maintain, update, and configure."
+      },
+      {
+        "id": 6,
+        "name": "Compliance",
+        "description": "Adhere to industry-specific regulations like GDPR, HIPAA, etc."
+      }
+    ]
+  }
+  
