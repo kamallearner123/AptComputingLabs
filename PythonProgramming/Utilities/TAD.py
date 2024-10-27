@@ -1,10 +1,11 @@
+
+# pip install pandas openpyxl
+
+
 import pandas as pd
 import json
 from openpyxl import Workbook
 import os
-
-# pip install pandas openpyxl
-
 
 # Load JSON data for features and non-functional requirements
 def load_features_and_non_functionalities(json_file):
