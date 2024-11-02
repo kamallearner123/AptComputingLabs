@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Rust Programming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Introduction to Rust Programming</h1>
+    </header>
+
+    <section>
+        <h2>What is Rust?</h2>
+        <p>Rust is a modern systems programming language that focuses on safety, speed, and concurrency. Developed by Mozilla, it eliminates many of the common pitfalls of other low-level languages like C and C++ by providing memory safety guarantees without needing a garbage collector.</p>
+        
+        <ul>
+            <li><strong>Memory Safety:</strong> Rust ensures memory safety through its ownership and borrowing system, preventing data races and null pointer dereferences.</li>
+            <li><strong>Performance:</strong> Rust achieves performance on par with C and C++, with fine control over memory usage and system resources.</li>
+            <li><strong>Concurrency:</strong> Rust simplifies writing safe concurrent code, avoiding common concurrency issues.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Why Learn Rust?</h2>
+        <p>Rust is increasingly becoming the go-to language for performance-critical applications such as game engines, web assembly, embedded systems, and large-scale systems programming.</p>
+        
+        <p>Key benefits of Rust include:</p>
+        <ul>
+            <li>Strong focus on safety and security.</li>
+            <li>High performance with minimal runtime overhead.</li>
+            <li>Great for concurrency and parallelism.</li>
+            <li>Growing community with excellent tooling and documentation.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Basic Syntax and Example Programs</h2>
+
+        <h3>Hello, World!</h3>
+        <p>The simplest program in Rust is the "Hello, World!" program, demonstrating basic syntax and how to print text to the console.</p>
+
+        <pre><code>// hello.rs
+fn main() {
+    println!("Hello, world!");
+}
+</code></pre>
+        <p>In this program:</p>
+        <ul>
+            <li><code>fn main()</code> is the main function where the execution starts.</li>
+            <li><code>println!</code> is a macro to print text to the console.</li>
+        </ul>
+
+        <h3>Variables and Mutability</h3>
+        <p>Rust variables are immutable by default. To make a variable mutable, use the <code>mut</code> keyword.</p>
+
+        <pre><code>// variables.rs
+fn main() {
+    let x = 5; // Immutable variable
+    println!("x = {}", x);
+
+    let mut y = 10; // Mutable variable
+    println!("y = {}", y);
+    
+    y = 15;
+    println!("y is now = {}", y);
+}
+</code></pre>
+
+        <h3>Data Types and Functions</h3>
+        <p>Rust has strong static typing. Here's an example of declaring variables with different data types and calling functions.</p>
+
+        <pre><code>// data_types.rs
+fn main() {
+    let a: i32 = 10; // Integer type
+    let b: f64 = 20.5; // Floating point type
+    let is_active: bool = true; // Boolean type
+    let name: &str = "Rust"; // String type
+
+    println!("Integer: {}, Float: {}, Boolean: {}, Name: {}", a, b, is_active, name);
+
+    let result = add(5, 10);
+    println!("5 + 10 = {}", result);
+}
+
+// A simple function that adds two integers
+fn add(x: i32, y: i32) -> i32 {
+    x + y
+}
+</code></pre>
+
+        <h3>Control Flow</h3>
+        <p>Rust provides control flow constructs such as <code>if</code> and loops like <code>for</code>, <code>while</code>, and <code>loop</code>.</p>
+
+        <pre><code>// control_flow.rs
+fn main() {
+    let number = 6;
+
+    if number % 2 == 0 {
+        println!("The number is even");
+    } else {
+        println!("The number is odd");
+    }
+
+    for i in 0..5 {
+        println!("i = {}", i);
+    }
+
+    let mut counter = 0;
+    while counter < 5 {
+        println!("Counter = {}", counter);
+        counter += 1;
+    }
+}
+</code></pre>
+
+        <h3>Ownership and Borrowing</h3>
+        <p>Ownership is one of the key concepts in Rust, ensuring memory safety without a garbage collector. Here's a simple example of ownership and borrowing:</p>
+
+        <pre><code>// ownership.rs
+fn main() {
+    let s1 = String::from("Hello");
+    let s2 = &s1; // Borrowing s1
+
+    println!("s1 = {}, s2 = {}", s1, s2);
+    // Ownership of s1 is not moved; it’s borrowed by s2.
+}
+</code></pre>
+
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>Rust offers a unique combination of performance, safety, and concurrency, making it a powerful language for system-level programming. These examples cover the basics of Rust syntax and introduce key concepts such as ownership, mutability, and control flow.</p>
+        
+        <p>As you progress, you'll dive deeper into more advanced features such as pattern matching, error handling, traits, and concurrency.</p>
+    </section>
+
+</body>
+</html>
