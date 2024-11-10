@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rust Programming Interactive Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Learn Rust with Interactive Code</h1>
+    <p>Explore Rust concepts, modify code, and see results instantly!</p>
+  </header>
+  
+  <section id="topics">
+    <!-- Repeat this block for each topic -->
+    <div class="topic">
+      <h2>Topic: Ownership</h2>
+      <p>Explanation about ownership in Rust.</p>
+      
+      <div id="codeEditor">fn main() {
+        let x = String::from("Hello, Rust!");
+        println!("{}", x);
+      }</div>
+      <button onclick="runCode()">Run Code</button>
+      <div id="output" class="output">Output will appear here.</div>
+      
+      <button onclick="runCode()">Run Code</button>
+      <div id="output" class="output">Output will appear here.</div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
