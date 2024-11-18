@@ -2,50 +2,54 @@
     "summary": {
         "title": "Summary",
         "image": "path/to/summary-image.jpg",
-        "description": "Welcome to Apt Computing Labs. We offer training in Rust, system programming, Python, C, and C++. Join us to enhance your skills and work on live projects!"
+        "description": "Apt Computing Labs will offer corporate training programs, online courses, and YouTube tutorials to make these topics accessible to a broad audience. You also plan to provide specialized training on Raspberry Pi, Jetson Nano, and Arduino for IoT and embedded projects, meeting the demand for skills in Web3, blockchain, and machine learning/AI.\nAn essential part of Apt Computing Labs is also helping companies transition from C/C++ to Rust programming, promoting Rust's benefits in terms of safety, performance, and modern tooling. You aim to guide organizations in making this switch, streamlining their projects with Rust's powerful features."
     },
     "upcomingSessions": [
         {
             "courseName": "Rust Programming Basics",
             "tutor": "Kamal Kumar",
             "duration": "24 Hours",
-            "cost": "Rs. 5000",
+            "cost": "Rs. 0 to 7000",
             "type": "Online",
+            "date": "13th Nov 2024 - 15th Dec 2024 (Mon to Thur)",
             "topics": "Ownership, Borrowing, Concurrency, Error Handling, Traits, Lifetimes, Cargo, Crates, Modules, Testing, Documentation, Macros, Unsafe Code, FFI",
-            "link": ""
+            "link": "https://github.com/kamallearner123/APTRUSTNOV12"
         },
         {
-            "courseName": "C Programming for Beginners",
-            "tutor": "Kamal Kumar",
-            "duration": "24 Hours",
-            "cost": "Rs. 5000",
-            "type": "Online",
-            "topics": "Basics, Data Types, Operators, Control Structures, Functions, Arrays, Pointers, Strings, Structures, File Handling",
-            "link": ""
-        },
-        {
-            "courseName": "Python for System Programming",
+            "courseName": "Python Programming",
             "tutor": "Kamal Kumar",
             "duration": "24 Hours",
             "cost": "Rs. 6000",
             "type": "Online",
-            "topics": "Basics, Scripting, Automation, Networking",
+            "date": "16th Nov 2024 - 15th Jan 2025 (Saturdays)",
+            "topics": "Basics, Scripting, Automation, Networking, ",
+            "link": "https://github.com/kamallearner123/APTPYTHNOV08"
+        },       
+        {
+            "courseName": "Python Programming on RPi",
+            "tutor": "Kamal Kumar",
+            "duration": "2 Hours",
+            "cost": "Free",
+            "type": "Online",
+            "date": "1st Dec 2024",
+            "topics": "Working with",
             "link": ""
         },       
         {
-            "courseName": "Advanced C++ Programming",
+            "courseName": "Arduino Programming using multiple sensors and actuators",
             "tutor": "Kamal Kumar",
-            "duration": "24 Hours",
-            "cost": "Rs. 6000",
+            "duration": "3 Hours",
+            "cost": "Rs. 500",
             "type": "Online",
-            "topics": "OOP, Templates, STL, Exception Handling, File I/O, Multithreading, Smart Pointers, Lambda Expressions",
+            "date": "8th Dec 2024",
+            "topics": "Writing simple programs using C/C++ on Arduino Micro Controller",
             "link": ""
         }
     ],
     "liveProjects": [
-        "Embedded Systems with Rust",
-        "Block Chain with Rust",
-        "AutoSAR IDS with Rust"
+        "AutoSAR IDS using Rust",
+        "V2X Stack (China)",
+        "Security Sensors in Linux using Rust"
     ],
     "gallery": [
         {
