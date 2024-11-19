@@ -1,0 +1,27 @@
+{
+	"rust-analyzer.linkedProjects": [
+		{
+			"sysroot": "",
+			"crates": [
+				{
+					"root_module": "Ownership.rs",
+					"display_name": "ownership",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "Vectors.rs",
+					"display_name": "vectors",
+					"edition": "2021",
+					"deps": []
+				},
+				{
+					"root_module": "refer_non_lexical_nalysis.rs",
+					"display_name": "refer_non_lexical_nalysis",
+					"edition": "2021",
+					"deps": []
+				}
+			]
+		}
+	]
+}
