@@ -1,7 +1,5 @@
 # Interactive Python Quiz: Medium Difficulty (Variables, Loops, Dictionaries, Sets)
 
-This quiz contains 20 medium-difficulty questions on Python programming, covering variables, loops, dictionaries, sets, and more. Each question presents a code snippet, and your task is to predict the output. Try to guess the output before checking the answers provided at the end. These questions assume familiarity with Python basics and test deeper understanding of its mechanics.
-
 ---
 
 ## Question 1: Variable Scope
