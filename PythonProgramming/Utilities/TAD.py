@@ -66,10 +66,7 @@ def generate_test_case_sheet(pts_df):
 
         test_case = [row["PTS ID"], row["PTS Description"], f"TC-{index + 1}", row["PTS Description"], "Sample Scenario", "Sample Preconditions", "Sample Steps", "Sample Expected Result", "", "FAIL"]
 
-<<<<<<< Updated upstream
-=======
         print(test_case)
->>>>>>> Stashed changes
         # Add test_case dictionary with columns as keys to the dataframe
         test_cases.append(test_case)
         
