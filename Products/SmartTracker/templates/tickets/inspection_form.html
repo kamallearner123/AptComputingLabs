@@ -1,0 +1,207 @@
+{% extends "DashBoards/base_dash_board.html" %}
+{% load static %}
+
+{% block title %}Inspection & Estimation - Smart Tracker{% endblock %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    .form-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .form-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+    .form-group label {
+      color: #1e3c72 !important;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+    .label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .label-with-icon i {
+      color: #1e3c72;
+      font-size: 1rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      color: #000000 !important;
+      background-color: #ffffff;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: #1e40af;
+      box-shadow: 0 0 8px rgba(30, 64, 175, 0.3);
+      outline: none;
+    }
+    .form-group input[readonly], .form-group textarea[readonly] {
+      background-color: #f3f4f6;
+      color: #4b5563 !important;
+      cursor: not-allowed;
+      border-color: #d1d5db;
+    }
+    .form-heading {
+      color: #1e40af !important;
+      background: linear-gradient(to right, #1e40af, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-submit {
+      background: linear-gradient(90deg, #10b981, #34d399);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(90deg, #059669, #10b981);
+    }
+    .btn-cancel {
+      background: linear-gradient(90deg, #6b7280, #9ca3af);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .btn-cancel:hover {
+      background: linear-gradient(90deg, #4b5563, #6b7280);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .form-card {
+      animation: fadeIn 0.5s ease-in;
+    }
+    .error-message {
+      color: #dc2626;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    .file-input-wrapper {
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      background-color: #f9fafb;
+    }
+    .file-input-wrapper:hover {
+      border-color: #1e40af;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<main class="flex-1 p-6 ml-0 md:ml-64 transition-all duration-300">
+  <div class="flex justify-center">
+    <div class="w-full max-w-3xl p-4">
+      <div class="form-card">
+        <h2 class="text-3xl font-bold form-heading mb-8 text-center">
+          Inspection & Estimation for {{ ticket.vehicle_number }}
+        </h2>
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+          <!-- Read-only Fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+              <label for="{{ form.service_ticket_id.id_for_label }}">
+                <span class="label-with-icon"><i class="fas fa-ticket-alt"></i> Service Ticket</span>
+              </label>
+              <input type="text" id="{{ form.service_ticket_id.id_for_label }}" name="{{ form.service_ticket_id.name }}" value="{{ form.service_ticket_id.value|default_if_none:'' }}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.customer_name.id_for_label }}">
+                <span class="label-with-icon"><i class="fas fa-user"></i> Customer Name</span>
+              </label>
+              <input type="text" id="{{ form.customer_name.id_for_label }}" name="{{ form.customer_name.name }}" value="{{ form.customer_name.value|default_if_none:'' }}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.vehicle_number.id_for_label }}">
+                <span class="label-with-icon"><i class="fas fa-id-card"></i> Vehicle Number</span>
+              </label>
+              <input type="text" id="{{ form.vehicle_number.id_for_label }}" name="{{ form.vehicle_number.name }}" value="{{ form.vehicle_number.value|default_if_none:'' }}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.vehicle_model.id_for_label }}">
+                <span class="label-with-icon"><i class="fas fa-car-side"></i> Vehicle Model</span>
+              </label>
+              <input type="text" id="{{ form.vehicle_model.id_for_label }}" name="{{ form.vehicle_model.name }}" value="{{ form.vehicle_model.value|default_if_none:'' }}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.vehicle_vin.id_for_label }}">
+                <span class="label-with-icon"><i class="fas fa-barcode"></i> Vehicle VIN</span>
+              </label>
+              <input type="text" id="{{ form.vehicle_vin.id_for_label }}" name="{{ form.vehicle_vin.name }}" value="{{ form.vehicle_vin.value|default_if_none:'' }}" readonly>
+            </div>
+          </div>
+          <!-- Editable Fields -->
+          <div class="form-group">
+            <label for="{{ form.inspection_notes.id_for_label }}">
+              <span class="label-with-icon"><i class="fas fa-file-alt"></i> Inspection Notes</span>
+            </label>
+            {{ form.inspection_notes }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.estimated_cost.id_for_label }}">
+              <span class="label-with-icon"><i class="fas fa-dollar-sign"></i> Estimated Cost ($)</span>
+            </label>
+            {{ form.estimated_cost }}
+          </div>
+          <!-- File Attachment -->
+          <div class="form-group">
+            <label for="{{ form.attachment.id_for_label }}">
+              <span class="label-with-icon"><i class="fas fa-file-upload"></i> Attach File (PDF, JPG, PNG)</span>
+            </label>
+            <div class="file-input-wrapper">
+              {{ form.attachment }}
+              <p class="text-sm text-gray-500 mt-2">Max size: 5MB. Accepted formats: PDF, JPG, PNG.</p>
+            </div>
+            {% if form.attachment.errors %}
+              <p class="error-message">{{ form.attachment.errors|join:", " }}</p>
+            {% endif %}
+          </div>
+          <!-- Form Errors -->
+          {% if form.non_field_errors %}
+            <div class="error-message">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <!-- Action Buttons -->
+          <div class="mt-8 flex justify-center gap-4">
+            <button type="submit" class="btn-submit">Send Estimation to Customer</button>
+            <a href="{% url 'accounts:dashboard' %}" class="btn-cancel">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.sidebar a[data-section="all-tickets"]').forEach(link => {
+      link.classList.add('active');
+    });
+  });
+</script>
+{% endblock %}

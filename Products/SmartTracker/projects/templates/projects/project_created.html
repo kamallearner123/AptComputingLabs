@@ -1,0 +1,28 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+    <title>Project Created</title>
+</head>
+<body>
+    <h1>Project Created Successfully!</h1>
+    <p><strong>Title:</strong> {{ project.title }}</p>
+    <p><strong>Phase:</strong> {{ project.phase }}</p>
+    <p><strong>Risk:</strong> {{ project.risk }}</p>
+    <p><strong>Notes:</strong> {{ project.notes }}</p>
+    <p><strong>Hours:</strong> {{ project.hours }}</p>
+    <p><strong>Start Date:</strong> {{ project.start_date }}</p>
+    <p><strong>End Date:</strong> {{ project.end_date }}</p>
+    <p><strong>Working People:</strong>
+        <ul>
+            {% for person in project.working_people.all %}
+                <li>{{ person.name }}</li>
+            {% empty %}
+                <li>No people assigned.</li>
+            {% endfor %}
+        </ul>
+    </p>
+    <a href="{% url 'projects:create_project' %}">Create Another Project</a>
+    <a href="{% url 'projects:display_projects' %}">View All Projects</a>
+</body>
+</html>
+{% endblock content %}

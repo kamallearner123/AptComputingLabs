@@ -1,0 +1,134 @@
+{% extends "DashBoards/base_dash_board.html" %}
+{% load static %}
+
+{% block title %}Invoice Form - Smart Tracker{% endblock %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    .form-label {
+      color: #1e3c72 !important;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+    .label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .label-with-icon i {
+      color: #1e3c72;
+      font-size: 1rem;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="container max-w-3xl mx-auto px-4 py-6">
+  <div class="bg-white rounded-2xl p-8 shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
+    <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-700 to-blue-500 text-white py-2 rounded-t-lg">
+      Invoice Form for Service Ticket: {{ form.service_ticket_id.value|default_if_none:0 }}
+    </h2>
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+      <!-- Display Read-only Values -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block form-label" for="{{ form.service_ticket_id.id_for_label }}">
+            <span class="label-with-icon"><i class="fas fa-ticket-alt"></i> Service Ticket ID</span>
+          </label>
+          <input type="text" name="{{ form.service_ticket_id.name }}" value="{{ form.service_ticket_id.value|default_if_none:0 }}" readonly class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg p-3 text-gray-600" />
+          {% if form.service_ticket_id.errors %}
+            <p class="text-sm text-red-600 mt-1">{{ form.service_ticket_id.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <label class="block form-label" for="{{ form.customer_name.id_for_label }}">
+            <span class="label-with-icon"><i class="fas fa-user"></i> Customer Name</span>
+          </label>
+          <input type="text" name="{{ form.customer_name.name }}" value="{{ form.customer_name.value|default_if_none:'' }}" readonly class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg p-3 text-gray-600" />
+          {% if form.customer_name.errors %}
+            <p class="text-sm text-red-600 mt-1">{{ form.customer_name.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <label class="block form-label" for="{{ form.vehicle_number.id_for_label }}">
+            <span class="label-with-icon"><i class="fas fa-id-card"></i> Vehicle Number</span>
+          </label>
+          <input type="text" name="{{ form.vehicle_number.name }}" value="{{ form.vehicle_number.value|default_if_none:'' }}" readonly class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg p-3 text-gray-600" />
+          {% if form.vehicle_number.errors %}
+            <p class="text-sm text-red-600 mt-1">{{ form.vehicle_number.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <label class="block form-label" for="{{ form.vehicle_model.id_for_label }}">
+            <span class="label-with-icon"><i class="fas fa-car-side"></i> Vehicle Model</span>
+          </label>
+          <input type="text" name="{{ form.vehicle_model.name }}" value="{{ form.vehicle_model.value|default_if_none:'' }}" readonly class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg p-3 text-gray-600" />
+          {% if form.vehicle_model.errors %}
+            <p class="text-sm text-red-600 mt-1">{{ form.vehicle_model.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <label class="block form-label" for="{{ form.vehicle_vin.id_for_label }}">
+            <span class="label-with-icon"><i class="fas fa-barcode"></i> Vehicle VIN</span>
+          </label>
+          <input type="text" name="{{ form.vehicle_vin.name }}" value="{{ form.vehicle_vin.value|default_if_none:'' }}" readonly class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg p-3 text-gray-600" />
+          {% if form.vehicle_vin.errors %}
+            <p class="text-sm text-red-600 mt-1">{{ form.vehicle_vin.errors|join:", " }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Editable Fields -->
+      <div>
+        <label class="block form-label" for="{{ form.invoice_details.id_for_label }}">
+          <span class="label-with-icon"><i class="fas fa-file-alt"></i> Invoice Notes</span>
+        </label>
+        <textarea id="{{ form.invoice_details.id_for_label }}" name="{{ form.invoice_details.name }}" rows="4" class="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:border-indigo-600 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ form.invoice_details.value|default_if_none:'' }}</textarea>
+        {% if form.invoice_details.errors %}
+          <p class="text-sm text-red-600 mt-1">{{ form.invoice_details.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+      <div>
+        <label class="block form-label" for="{{ form.invoice_amount.id_for_label }}">
+          <span class="label-with-icon"><i class="fas fa-dollar-sign"></i> Total Cost ($)</span>
+        </label>
+        <input type="number" id="{{ form.invoice_amount.id_for_label }}" name="{{ form.invoice_amount.name }}" min="0" class="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:border-indigo-600 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ form.invoice_amount.value|default_if_none:0 }}" />
+        {% if form.invoice_amount.errors %}
+          <p class="text-sm text-red-600 mt-1">{{ form.invoice_amount.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+      <!-- File Attachment -->
+      <div class="form-group">
+        <label class="block form-label" for="{{ form.attachment.id_for_label }}">
+          <span class="label-with-icon"><i class="fas fa-file-upload"></i> Attach File (PDF, JPG, PNG)</span>
+        </label>
+        <div class="file-input-wrapper">
+          {{ form.attachment }}
+          <p class="text-sm text-gray-500 mt-2">Max size: 5MB. Accepted formats: PDF, JPG, PNG.</p>
+        </div>
+        {% if form.attachment.errors %}
+          <p class="text-sm text-red-600 mt-1">{{ form.attachment.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+      <!-- Non-field Errors -->
+      {% if form.non_field_errors %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mt-2">
+          {% for error in form.non_field_errors %}
+            <p class="text-sm">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <!-- Action Buttons -->
+      <div class="flex justify-center gap-4 mt-8">
+        <button type="submit" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-600 hover:to-emerald-600 transition-colors duration-300">Submit Invoice</button>
+        <a href="{% url 'accounts:dashboard' %}" class="bg-gradient-to-r from-gray-500 to-gray-400 text-white font-semibold py-3 px-6 rounded-lg hover:from-gray-600 hover:to-gray-500 transition-colors duration-300">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

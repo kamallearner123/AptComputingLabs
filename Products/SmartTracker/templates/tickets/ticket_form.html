@@ -1,0 +1,427 @@
+{% extends 'DashBoards/base_dash_board.html' %}
+{% load static %}
+
+{% block title %}Create Service Ticket{% endblock %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    .form-section {
+      background: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .form-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #1e3c72;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-left: 4px solid #e6f0fa;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
+    .form-group:hover {
+      border-left-color: #0a58ca;
+    }
+    .form-label {
+      color: #1e3c72 !important;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+    .label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .label-with-icon i {
+      color: #1e3c72;
+      font-size: 1rem;
+    }
+    .btn-submit {
+      padding: 12px 30px;
+      background-color: #1e3c72;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-submit:hover {
+      background-color: #2a5298;
+      transform: translateY(-2px);
+    }
+    .btn-cancel {
+      padding: 12px 30px;
+      background-color: #6c757d;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-left: 15px;
+    }
+    .btn-cancel:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+    }
+    h4 {
+      margin-top: 40px;
+      color: #0a58ca;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-bottom: 2px solid #0a58ca;
+      padding-bottom: 5px;
+      background: linear-gradient(90deg, rgba(10,88,202,0.1) 0%, rgba(255,255,255,0) 100%);
+      padding: 10px 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h4::before {
+      content: attr(data-emoji);
+      font-size: 1.8rem;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="form-section">
+    <h2 class="form-title">Service Ticket ID: {{ service_ticket_id|default:"New" }}</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h4 data-emoji="🛠️"><strong>Service & Assignment</strong></h4>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_service_type">
+            <span class="label-with-icon"><i class="fas fa-wrench"></i> Service Type</span>
+          </label>
+          {{ form.service_type }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_service_advisor">
+            <span class="label-with-icon"><i class="fas fa-user-tie"></i> Service Advisor</span>
+          </label>
+          {{ form.service_advisor }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_checkin_on">
+            <span class="label-with-icon"><i class="fas fa-calendar-check"></i> Check-in On</span>
+          </label>
+          {{ form.checkin_on }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_delivery_due_date">
+            <span class="label-with-icon"><i class="fas fa-calendar-alt"></i> Delivery Due Date</span>
+          </label>
+          {{ form.delivery_due_date }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_complaints">
+            <span class="label-with-icon"><i class="fas fa-exclamation-circle"></i> Complaints</span>
+          </label>
+          {{ form.complaints }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_description">
+            <span class="label-with-icon"><i class="fas fa-file-alt"></i> Description</span>
+          </label>
+          {{ form.description }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_created_by">
+            <span class="label-with-icon"><i class="fas fa-user-plus"></i> Created By</span>
+          </label>
+          {{ form.created_by }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_updated_by">
+            <span class="label-with-icon"><i class="fas fa-user-edit"></i> Updated By</span>
+          </label>
+          {{ form.updated_by }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_status">
+            <span class="label-with-icon"><i class="fas fa-clipboard-check"></i> Status</span>
+          </label>
+          {{ form.status }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_assigned_to">
+            <span class="label-with-icon"><i class="fas fa-user-cog"></i> Assigned To</span>
+          </label>
+          {{ form.assigned_to }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_fuel_level">
+            <span class="label-with-icon"><i class="fas fa-gas-pump"></i> Fuel Level</span>
+          </label>
+          {{ form.fuel_level }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_history">
+            <span class="label-with-icon"><i class="fas fa-history"></i> History</span>
+          </label>
+          {{ form.history }}
+        </div>
+        <div class="col-md-6 form-check">
+          <label class="form-label" for="id_spare_wheel">
+            <span class="label-with-icon"><i class="fas fa-circle-check"></i> Spare Wheel</span>
+          </label>
+          {{ form.spare_wheel }}
+        </div>
+        <div class="col-md-6 form-check">
+          <label class="form-label" for="id_jack">
+            <span class="label-with-icon"><i class="fas fa-circle-check"></i> Jack</span>
+          </label>
+          {{ form.jack }}
+        </div>
+        <div class="col-md-6 form-check">
+          <label class="form-label" for="id_tool_kit">
+            <span class="label-with-icon"><i class="fas fa-circle-check"></i> Tool Kit</span>
+          </label>
+          {{ form.tool_kit }}
+        </div>
+        <div class="col-md-6 form-check">
+          <label class="form-label" for="id_any_warning_light_on">
+            <span class="label-with-icon"><i class="fas fa-circle-check"></i> Any Warning Light On</span>
+          </label>
+          {{ form.any_warning_light_on }}
+        </div>
+      </div>
+
+      <h4 data-emoji="🚗"><strong>Vehicle Details</strong></h4>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_chassis_number">
+            <span class="label-with-icon"><i class="fas fa-car"></i> Chassis Number</span>
+          </label>
+          {{ form.chassis_number }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_reg_no">
+            <span class="label-with-icon"><i class="fas fa-id-card"></i> Registration Number</span>
+          </label>
+          {{ form.reg_no }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_make">
+            <span class="label-with-icon"><i class="fas fa-industry"></i> Make</span>
+          </label>
+          {{ form.make }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_model">
+            <span class="label-with-icon"><i class="fas fa-car-side"></i> Model</span>
+          </label>
+          {{ form.model }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_year">
+            <span class="label-with-icon"><i class="fas fa-calendar"></i> Year</span>
+          </label>
+          {{ form.year }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_vin">
+            <span class="label-with-icon"><i class="fas fa-barcode"></i> VIN</span>
+          </label>
+          {{ form.vin }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_colour">
+            <span class="label-with-icon"><i class="fas fa-palette"></i> Colour</span>
+          </label>
+          {{ form.colour }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_mileage">
+            <span class="label-with-icon"><i class="fas fa-tachometer-alt"></i> Mileage</span>
+          </label>
+          {{ form.mileage }}
+        </div>
+        <div class="col-md- 🙂 form-group">
+          <label class="form-label" for="id_trans">
+            <span class="label-with-icon"><i class="fas fa-cogs"></i> Transmission</span>
+          </label>
+          {{ form.trans }}
+        </div>
+      </div>
+
+      <h4 data-emoji="👤"><strong>Customer Details</strong></h4>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_customer_name">
+            <span class="label-with-icon"><i class="fas fa-user"></i> Customer Name</span>
+          </label>
+          {{ form.customer_name }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_customer_mobile_number">
+            <span class="label-with-icon"><i class="fas fa-phone"></i> Mobile Number</span>
+          </label>
+          {{ form.customer_mobile_number }}
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label" for="id_customer_email">
+            <span class="label-with-icon"><i class="fas fa-envelope"></i> Email</span>
+          </label>
+          {{ form.customer_email }}
+        </div>
+        <div class="col-md-12 form-group">
+          <label class="form-label" for="id_customer_address">
+            <span class="label-with-icon"><i class="fas fa-map-marker-alt"></i> Address</span>
+          </label>
+          {{ form.customer_address }}
+        </div>
+      </div>
+
+      {% if status_value == "Estimation" %}
+        <div class="mb-4">
+          <a href="{% url 'accounts:ticket_inspection' service_ticket_id %}" class="btn btn-warning">Inspect and Estimate</a>
+        </div>
+      {% endif %}
+
+      {% if status_value == "Ready for delivery" %}
+        <div class="mb-4">
+          <a href="{% url 'accounts:ticket_invoice' service_ticket_id %}" class="btn btn-warning">Send Invoice</a>
+        </div>
+      {% endif %}
+
+      {% if status_value == "Invoice Paid" %}
+        <div class="mb-4">
+          <a href="{% url 'accounts:ticket_customer_feedback' service_ticket_id %}" class="btn btn-warning">Get Customer Feedback</a>
+        </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label class="form-label" for="id_image">
+            <span class="label-with-icon"><i class="fas fa-image"></i> Image Upload</span>
+          </label>
+          {{ form.image }}
+          {% if form.instance.image %}
+            <div class="mt-2">
+              <img src="{{ form.instance.image.url }}" class="img-thumbnail" width="150" alt="Current service ticket image">
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="form-label" for="id_document">
+            <span class="label-with-icon"><i class="fas fa-file-pdf"></i> Document Upload</span>
+          </label>
+          {{ form.document }}
+          {% if form.instance.document %}
+            <div class="mt-2">
+              <a href="{{ form.instance.document.url }}" target="_blank" class="btn btn-sm btn-outline-primary">View Document</a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="form-label" for="id_video">
+            <span class="label-with-icon"><i class="fas fa-video"></i> Video Upload</span>
+          </label>
+          {{ form.video }}
+          {% if form.instance.video %}
+            <div class="mt-2">
+              <video width="150" controls>
+                <source src="{{ form.instance.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn-submit">Submit</button>
+        <a href="{% url 'accounts:view_my_tickets' %}" class="btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const chassisInput = document.getElementById("id_chassis_number");
+
+    if (chassisInput) {
+      console.log("Chassis input found, binding input event");
+      let debounceTimeout;
+      chassisInput.addEventListener("input", () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(fetchVehicleDetails, 500);
+      });
+    } else {
+      console.error("Chassis input (#id_chassis_number) not found");
+    }
+
+    document.querySelectorAll('.sidebar a[data-section="create-ticket"]').forEach(link => {
+      link.classList.add('active');
+    });
+  });
+
+  function fetchVehicleDetails() {
+    const chassisNumber = document.getElementById("id_chassis_number").value;
+    console.log("Fetching details for chassis number:", chassisNumber);
+
+    if (chassisNumber) {
+      console.log("Sending fetch request to:", `/accounts/get_vehicle_details/${encodeURIComponent(chassisNumber)}/`);
+      fetch(`/accounts/get_vehicle_details/${encodeURIComponent(chassisNumber)}/`)
+        .then(response => {
+          console.log("Response status:", response.status);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Received data:", data);
+
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+
+          document.getElementById("id_vin").value = data.vin || "";
+          document.getElementById("id_reg_no").value = data.reg_no || "";
+          document.getElementById("id_make").value = data.make || "";
+          document.getElementById("id_model").value = data.model || "";
+          document.getElementById("id_year").value = data.year || "";
+          document.getElementById("id_colour").value = data.colour || "";
+          document.getElementById("id_mileage").value = data.mileage || "";
+          document.getElementById("id_trans").value = data.trans || "";
+
+          document.getElementById("id_customer_name").value = data.customer_name || "";
+          document.getElementById("id_customer_mobile_number").value = data.customer_mobile_number || "";
+          document.getElementById("id_customer_email").value = data.customer_email || "";
+          document.getElementById("id_customer_address").value = data.customer_address || "";
+        })
+        .catch(error => {
+          console.error("Error fetching vehicle and customer details:", error);
+          alert("Could not fetch vehicle or customer details. Please try again.");
+        });
+    } else {
+      console.log("Chassis number is empty, skipping fetch");
+    }
+  }
+</script>
+{% endblock %}

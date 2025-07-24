@@ -1,0 +1,26 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+<html>
+<head>
+    <title>Work Tasks List</title>
+</head>
+<body>
+    <h1>Work Tasks</h1>
+    <ul>
+        {% for work_task in work_tasks %}
+            <li>
+                <strong>Title:</strong> {{ work_task.title }}<br>
+                <strong>Description:</strong> {{ work_task.description|default:"-" }}<br>
+                <strong>Assigned To:</strong> {{ work_task.assigned_to.get_full_name|default:"Unassigned" }}<br>
+                <strong>Status:</strong> {{ work_task.status }}<br>
+                <strong>Start Date:</strong> {{ work_task.start_date|date:"Y-m-d"|default:"-" }}<br>
+                <strong>End Date:</strong> {{ work_task.end_date|date:"Y-m-d"|default:"-" }}
+            </li>
+        {% empty %}
+            <li>No work tasks found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock content %}

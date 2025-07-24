@@ -1,0 +1,26 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+    <h1>Projects Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'projects:display_projects' %}">List Projects</a></li>
+            <li><a href="{% url 'projects:list_tasks' %}">List Work Tasks</a></li>
+            <li><a href="{% url 'projects:create_project' %}">Create Project</a></li>
+            <li><a href="{% url 'projects:create_work_task' %}">Create Work Task</a></li>
+        </ul>
+    </nav>
+    <hr>
+    <h2>Recent Projects</h2>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <strong>{{ project.title }}</strong> ({{ project.phase }})<br>
+                Risk: {{ project.risk }}<br>
+                <a href="{% url 'projects:display_projects' %}">View Details</a>
+            </li>
+        {% empty %}
+            <li>No projects available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

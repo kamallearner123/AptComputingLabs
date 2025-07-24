@@ -1,0 +1,44 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+    <h1>Create Work Task</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <label for="assigned_to">Assigned To:</label>
+        <select name="assigned_to" id="assigned_to">
+            <option value="">Unassigned</option>
+            {% for employee in employees %}
+                <option value="{{ employee.id }}">{{ employee.full_name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="On Hold">On Hold</option>
+        </select><br><br>
+
+        <label for="project_id">Project ID:</label>
+        <select id="project_id" name="project_id" required>
+            {% for project in projects %}
+                <option value="{{ project.project_id }}">{{ project.project_id }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date"><br><br>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date"><br><br>
+
+        <button type="submit">Create Task</button>
+    </form>
+{% endblock content %}

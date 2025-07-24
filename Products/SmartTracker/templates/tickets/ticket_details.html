@@ -1,0 +1,262 @@
+{% extends 'DashBoards/employee_dashboard.html' %}
+{% load static %}
+
+{% block title %}Ticket Detail{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: auto; padding: 30px;">
+  <h1 style="text-align: center; color: #f3edea; font-size: 2.5rem;">🔧 Service Ticket Details</h1>
+
+  {% if ticket %}
+  <style>
+    .section-box {
+      background: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .section-title {
+      color: #ff6600;
+      font-size: 20px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #ff6600;
+      padding-bottom: 5px;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    .info-table th {
+      text-align: left;
+      padding: 8px;
+      background-color: #f9f9f9;
+      color: #444;
+      width: 20%;
+    }
+    .info-table td {
+      padding: 8px;
+      color: #333;
+      width: 30%;
+    }
+    .info-table tr:nth-child(even) {
+      background-color: #f4f7fc;
+    }
+    /* Highlight specific labels */
+    .highlight-th {
+      background-color: #fff3e0; /* Light orange background */
+      font-weight: bold;
+      color: #ff6600; /* Orange text */
+    }
+  </style>
+
+
+  <!-- Buttons -->
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'accounts:edit_ticket' ticket.service_ticket_id %}" style="
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    ">✏️ Edit Ticket</a>
+  </div>
+
+  <!-- Section 1: Service & Assignment -->
+  <div class="section-box">
+    <div class="section-title">🛠️ Service & Assignment</div>
+    <table class="info-table">
+      <tr>
+        <th>Service Type:</th><td>{{ ticket.service_type }}</td>
+        <th>Service Advisor:</th><td>{{ ticket.service_advisor }}</td>
+      </tr>
+      <tr>
+        <th class="highlight-th" style="background-color: #ffe0b2; color: #130701;">Assigned To:</th>
+        <td style="background-color: #ffe0b2; color: #130701;">{{ ticket.assigned_to }}</td>
+        <th class="highlight-th" style="background-color: #ffe0b2; color: #130701;">Status:</th>
+        <td style="background-color: #ffe0b2; color: #130701;">{{ ticket.status }}</td>
+      </tr>
+      <tr>
+        <th class="highlight-th" style="font-weight: bold;">Check-in On:</th>
+        <td>{{ ticket.checkin_on|date:"Y-m-d H:i" }}</td>
+        <th class="highlight-th" style="background-color: #ffe0b2; color: #130701; font-weight: bold;">Delivery Due:</th>
+        <td style="background-color: #ffe0b2; color: #130701;">{{ ticket.delivery_due_date }}</td>
+      </tr>
+      <tr>
+        <th>Complaints:</th><td colspan="3">{{ ticket.complaints }}</td>
+      </tr>
+      <tr>
+        <th>Description:</th><td colspan="3">{{ ticket.description }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Section 3: Vehicle Details -->
+  <div class="section-box">
+    <div class="section-title">🚗 Vehicle Details</div>
+    <table class="info-table">
+      <tr>
+        <th>Vehicle:</th><td>{{ ticket.vehicle }}</td>
+        <th>Reg. No:</th><td>{{ ticket.reg_no }}</td>
+      </tr>
+      <tr>
+        <th>Chassis No:</th><td>{{ ticket.chassis_number }}</td>
+        <th>Make:</th><td>{{ ticket.make }}</td>
+      </tr>
+      <tr>
+        <th>Model:</th><td>{{ ticket.model }}</td>
+        <th>Year:</th><td>{{ ticket.year }}</td>
+      </tr>
+      <tr>
+        <th>VIN:</th><td>{{ ticket.vin }}</td>
+        <th>Colour:</th><td>{{ ticket.colour }}</td>
+      </tr>
+      <tr>
+        <th>Mileage:</th><td>{{ ticket.mileage }} km</td>
+        <th>Transmission:</th><td>{{ ticket.trans }}</td>
+      </tr>
+      <tr>
+        <th>Fuel Level:</th><td>{{ ticket.fuel_level }}</td>
+        <th>Spare Wheel:</th><td>{{ ticket.spare_wheel|yesno:"Yes,No" }}</td>
+      </tr>
+      <tr>
+        <th>Jack:</th><td>{{ ticket.jack|yesno:"Yes,No" }}</td>
+        <th>Tool Kit:</th><td>{{ ticket.tool_kit|yesno:"Yes,No" }}</td>
+      </tr>
+      <tr>
+        <th>Warning Light On:</th><td>{{ ticket.any_warning_light_on|yesno:"Yes,No" }}</td>
+        <td colspan="2"></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Section 2: Customer Details -->
+  <div class="section-box">
+    <div class="section-title">👤 Customer Details</div>
+    <table class="info-table">
+      <tr>
+        <th>Ticket ID:</th><td>{{ ticket.service_ticket_id }}</td>
+        <th>Customer Name:</th><td>{{ ticket.customer_name }}</td>
+      </tr>
+      <tr>
+        <th>Mobile Number:</th><td>{{ ticket.customer_mobile_number }}</td>
+        <th>Email:</th><td>{{ ticket.customer_email }}</td>
+      </tr>
+      <tr>
+        <th>Address:</th><td colspan="3">{{ ticket.customer_address }}</td>
+      </tr>
+    </table>
+  </div>
+
+<!-- Section 4: Status History (Simple Table, No Date Filter) -->
+<div class="section-box">
+  <div class="section-title">📊 Status History</div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Assigned To</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in list_of_statuses %}
+          <tr>
+            <td>
+              {% if item.date %}
+                {{ item.date }}
+              {% else %}
+                Not Available
+              {% endif %}
+            </td>
+            <td>{{ item.status|default:"Unknown" }}</td>
+            <td>{{ item.assigned_to|default:"Unassigned" }}</td>
+          </tr>
+        {% endfor %}
+        {% if not list_of_statuses %}
+          <tr>
+            <td colspan="3">No status history available.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .section-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  .table {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .table th, .table td {
+    padding: 12px;
+    vertical-align: middle;
+    text-align: left;
+    color: #000;
+    min-width: 150px;
+    white-space: nowrap;
+  }
+  .table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+</style>
+  <!-- Buttons -->
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'accounts:edit_ticket' ticket.service_ticket_id %}" style="
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    ">✏️ Edit Ticket</a>
+  </div>
+
+  <div style="text-align: center; margin-top: 15px;">
+    <button onclick="window.print()" style="
+      background-color: #ffc107;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    ">🖨️ Print Ticket</button>
+  </div>
+  {% else %}
+    <p style="text-align:center; color: red;">No ticket found.</p>
+  {% endif %}
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{% url 'accounts:view_all_tickets' %}" style="
+        background-color: #ff6600;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 6px;
+    ">🔙 Back to Tickets</a>
+  </div>
+</div>
+{% endblock %}

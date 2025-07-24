@@ -1,0 +1,66 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <div class="stats-board mt-6 max-w-7xl mx-auto">
+    <!-- User Profile -->
+    <h2 class="text-2xl font-semibold text-white mb-4">My Profile</h2>
+    <div class="bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300 flex flex-col md:flex-row items-center md:items-start gap-6">
+      {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="{{ user.full_name }}'s Profile Picture" class="h-24 w-24 rounded-full border-2 border-yellow-300 object-cover" />
+      {% else %}
+        <div class="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+          <i class="fas fa-user fa-2x"></i>
+        </div>
+      {% endif %}
+      <div class="flex-1 p-4">
+        <h3 class="text-lg font-semibold text-gray-800">{{ user.full_name }}</h3>
+        <p class="text-gray-600"><strong>Role:</strong> {{ user.role|default:"Not specified" }}</p>
+        <p class="text-gray-600"><strong>Phone:</strong> {{ user.phone_number|default:"Not provided" }}</p>
+        <p class="text-gray-600"><strong>Address:</strong> {{ user.address|default:"Not provided" }}</p>
+      </div>
+    </div>
+
+    <!-- My Tickets -->
+    <h2 class="text-2xl font-semibold text-white mt-8 mb-4">My Tickets</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Total Tickets</h3>
+        <p class="text-2xl font-bold text-yellow-500">{{ my_total_tickets|default:0 }}</p>
+        <p class="text-gray-600">Tickets created by you</p>
+      </div>
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Active Tickets</h3>
+        <p class="text-2xl font-bold text-blue-500">{{ my_active_tickets|default:0 }}</p>
+        <p class="text-gray-600">Tickets currently being processed</p>
+      </div>
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Resolved Tickets</h3>
+        <p class="text-2xl font-bold text-green-500">{{ my_resolved_tickets|default:0 }}</p>
+        <p class="text-gray-600">Tickets that have been resolved</p>
+      </div>
+    </div>
+
+
+    <!-- All Tickets -->
+    <h2 class="text-2xl font-semibold text-white mt-8 mb-4">All Tickets</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Total Tickets</h3>
+        <p class="text-2xl font-bold text-yellow-500">{{ all_total_tickets|default:0 }}</p>
+        <p class="text-gray-600">All tickets in the system</p>
+      </div>
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Active Tickets</h3>
+        <p class="text-2xl font-bold text-blue-500">{{ all_active_tickets|default:0 }}</p>
+        <p class="text-gray-600">All tickets currently being processed</p>
+      </div>
+      <div class="stat-card bg-yellow-50 p-6 rounded-lg shadow-md border border-yellow-300">
+        <h3 class="text-lg font-semibold text-gray-800">Resolved Tickets</h3>
+        <p class="text-2xl font-bold text-green-500">{{ all_resolved_tickets|default:0 }}</p>
+        <p class="text-gray-600">All tickets that have been resolved</p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

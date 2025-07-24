@@ -1,0 +1,131 @@
+<!-- templates/ticket_invoice_confirmation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .form-box {
+            width: 100%;
+            max-width: 650px;
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 3px solid #000; /* Bold box edges */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: bold; /* Bold field names */
+        }
+        textarea[readonly], input[readonly] {
+            background-color: #e9ecef !important;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="form-box">
+            <!-- Logo -->
+            <img src="/static/images/CompanyLogo.png" alt="Company Logo" class="logo">
+
+            <h2 class="text-dark text-center mb-4">Ticket Invoice Confirmation</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Read-only fields -->
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Service Ticket ID</label>
+                    <div class="col-sm-8">
+                        {{ form.service_ticket_id }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Customer Name</label>
+                    <div class="col-sm-8">
+                        {{ form.customer_name }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Vehicle Number</label>
+                    <div class="col-sm-8">
+                        {{ form.vehicle_number }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Vehicle Model</label>
+                    <div class="col-sm-8">
+                        {{ form.vehicle_model }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Vehicle VIN</label>
+                    <div class="col-sm-8">
+                        {{ form.vehicle_vin }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Invoice Details</label>
+                    <div class="col-sm-8">
+                        {{ form.invoice_details }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Invoice Amount ($)</label>
+                    <div class="col-sm-8">
+                        {{ form.invoice_amount }}
+                    </div>
+                </div>
+
+                <!-- New Customer Comments field -->
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Customer Comments</label>
+                    <div class="col-sm-8">
+                        {{ form.customer_comments }}
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li class="text-dark">{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li class="text-dark">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" name="action" value="accept" class="btn btn-success w-45">Pay</button>
+                    <button type="submit" name="action" value="reject" class="btn btn-danger w-45">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="text-center mt-4 text-muted">
+        <p>&copy; 2025 Smart Car Service Tracker. All rights reserved.</p>
+    </footer>
+</body>
+</html>

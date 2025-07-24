@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #000000;">Customer Feedback Form</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" class="p-4 border rounded shadow-sm bg-light">
+                {% csrf_token %}
+                
+                <!-- Service Ticket -->
+                <div class="mb-3">
+                    <label for="{{ form.service_ticket.id_for_label }}" class="form-label" style="color: #000000;">Service Ticket</label>
+                    {{ form.service_ticket }}
+                </div>
+
+                <!-- Customer Name -->
+                <div class="mb-3">
+                    <label for="{{ form.customer_name.id_for_label }}" class="form-label" style="color: #000000;">Customer Name</label>
+                    {{ form.customer_name }}
+                </div>
+
+                <!-- Vehicle Number -->
+                <div class="mb-3">
+                    <label for="{{ form.vehicle_number.id_for_label }}" class="form-label" style="color: #000000;">Vehicle Number</label>
+                    {{ form.vehicle_number }}
+                </div>
+
+                <!-- Vehicle Model -->
+                <div class="mb-3">
+                    <label for="{{ form.vehicle_model.id_for_label }}" class="form-label" style="color: #000000;">Vehicle Model</label>
+                    {{ form.vehicle_model }}
+                </div>
+
+                <!-- Vehicle VIN -->
+                <div class="mb-3">
+                    <label for="{{ form.vehicle_vin.id_for_label }}" class="form-label" style="color: #000000;">Vehicle VIN</label>
+                    {{ form.vehicle_vin }}
+                </div>
+
+                <!-- Rating -->
+                <div class="mb-3">
+                    <label for="{{ form.rating.id_for_label }}" class="form-label" style="color: #000000;">Rating (1-5)</label>
+                    {{ form.rating }}
+                </div>
+
+                <!-- Feedback Notes -->
+                <div class="mb-3">
+                    <label for="{{ form.feedback_notes.id_for_label }}" class="form-label" style="color: #000000;">Feedback Notes <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="{{ form.feedback_notes.id_for_label }}" name="{{ form.feedback_notes.name }}" rows="6" placeholder="Please share your feedback or suggestions..." required style="color: #000000;">{{ form.feedback_notes.value|default_if_none:'' }}</textarea>
+                    <small class="form-text text-muted">This field is required.</small>
+                </div>
+
+                <!-- Form Errors -->
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="mb-0">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-5">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for black text and better form styling -->
+<style>
+    /* Ensure all form field values are black */
+    .form-control, 
+    .form-select, 
+    .form-control::placeholder, 
+    .form-select option, 
+    .form-control:focus, 
+    .form-select:focus, 
+    textarea, 
+    input[type="text"], 
+    input[type="number"], 
+    input[type="email"], 
+    input[type="tel"] {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #ced4da;
+    }
+
+    /* Ensure focus states maintain black text */
+    .form-control:focus, 
+    .form-select:focus, 
+    textarea:focus {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    /* Labels and other text */
+    .form-label {
+        font-weight: 500;
+        color: #000000 !important;
+    }
+
+    /* Submit button styling */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    /* Form field styling */
+    .form-control, 
+    .form-select, 
+    textarea {
+        border-radius: 0.375rem;
+    }
+
+    /* Override any inherited styles */
+    input, select, textarea {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+
+    /* Highlight required fields */
+    .text-danger {
+        color: #dc3545 !important;
+    }
+</style>
+{% endblock %}

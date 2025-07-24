@@ -1,0 +1,125 @@
+{% extends "DashBoards/base_dash_board.html" %}
+{% load static %}
+
+{% block title %}Employee Profile - Smart Tracker{% endblock %}
+
+{% block content %}
+<style>
+  /* Custom styles for profile card and table */
+  .profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  .profile-picture {
+    object-fit: cover;
+    border: 4px solid #1e40af;
+  }
+  .profile-table th {
+    color: #000000 !important;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .profile-table td {
+    color: #1e40af;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .profile-table .icon {
+    margin-right: 8px;
+    color: #1e40af;
+  }
+  /* Specific style to override base template's white text for heading */
+  .profile-heading {
+    color: #1e40af !important;
+  }
+  /* Animation for content fade */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .profile-card.active {
+    animation: fadeIn 0.5s ease-in;
+  }
+</style>
+
+<!-- Main Content Area -->
+<main class="flex-1 p-6 ml-0 md:ml-30 transition-all duration-300">
+  <div class="container mx-auto">
+    <div class="profile-card" id="content-box">
+      <h2 class="text-2xl font-bold profile-heading mb-6">Employee Profile</h2>
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Profile Picture -->
+        <div class="flex-shrink-0">
+          {% if employee.profile_picture and employee.profile_picture.url %}
+            <img src="{{ employee.profile_picture.url }}" alt="Profile picture of {{ employee.full_name }}" class="profile-picture w-48 h-48 rounded-full mx-auto">
+          {% else %}
+            <img src="{% static 'accounts/images/default_profile.png' %}" alt="Default profile picture" class="profile-picture w-48 h-48 rounded-full mx-auto">
+          {% endif %}
+        </div>
+        <!-- Profile Details Table -->
+        <div class="flex-1">
+          <table class="profile-table w-full">
+            <tr>
+              <th><i class="fas fa-user icon"></i> Full Name</th>
+              <td>{{ employee.full_name }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-briefcase icon"></i> Role</th>
+              <td>{{ employee.role }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-user-circle icon"></i> Username</th>
+              <td>{{ employee.username }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-envelope icon"></i> Email</th>
+              <td>{{ employee.email|default:"Not provided" }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-phone icon"></i> Phone Number</th>
+              <td>{{ employee.phone_number|default:"Not provided" }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-calendar-alt icon"></i> Date of Birth</th>
+              <td>{{ employee.date_of_birth|date:"F d, Y"|default:"Not provided" }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-map-marker-alt icon"></i> Address</th>
+              <td>{{ employee.address|default:"Not provided" }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-calendar-check icon"></i> Date Joined</th>
+              <td>{{ employee.date_joined|date:"F d, Y" }}</td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-toggle-on icon"></i> Status</th>
+              <td>{{ employee.is_active|yesno:"Active,Inactive" }}</td>
+            </tr>
+          </table>
+          <!-- Action Buttons -->
+          <div class="mt-6 flex gap-4">
+            <a href="{% url 'accounts:edit-employee-profile' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              Edit Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- JavaScript to Highlight Sidebar Link -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Highlight the "View Advisor Profile" link in the sidebar
+    document.querySelectorAll('.sidebar a[data-section="view-profile"]').forEach(link => {
+      link.classList.add('active');
+    });
+  });
+</script>
+{% endblock %}

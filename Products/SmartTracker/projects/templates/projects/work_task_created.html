@@ -1,0 +1,19 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+    <title>Work Task Created</title>
+</head>
+<body>
+    <h1>Work Task Created Successfully!</h1>
+    <p><strong>Title:</strong> {{ work_task.title }}</p>
+    <p><strong>Description:</strong> {{ work_task.description }}</p>
+    <p><strong>Status:</strong> {{ work_task.status }}</p>
+    <p><strong>Start Date:</strong> {{ work_task.start_date }}</p>
+    <p><strong>End Date:</strong> {{ work_task.end_date }}</p>
+    <p><strong>Assigned To:</strong> {{ work_task.assigned_to }}</p>
+    <p><strong>Project:</strong> {{ work_task.project.title }}</p>
+    <a href="{% url 'projects:create_work_task' %}">Create Another Work Task</a>
+    <a href="{% url 'projects:list_tasks' %}">View All Work Tasks</a>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'DashBoards/employee_dashboard.html' %}
+{% load static %}
+
+{% block title %}Service Tickets{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen px-4">
+  <div class="w-full max-w-6xl ml-4">
+    <div class="section-box bg-white p-5 rounded-xl shadow-lg">
+      <table class="ticket-table w-full border border-blue-900 rounded-lg font-sans">
+        <thead class="bg-blue-900 text-white text-xl">
+          <tr>
+            <th scope="col" class="p-3 text-left">ID</th>
+            <th scope="col" class="p-3 text-left">Service Type</th>
+            <th scope="col" class="p-3 text-left">Status</th>
+            <th scope="col" class="p-3 text-left">Assigned To</th>
+            <th scope="col" class="p-3 text-left">Created At</th>
+            <th scope="col" class="p-3 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+            <tr class="bg-blue-800 text-white text-lg hover:bg-blue-700 transition-colors">
+              <td class="p-3">{{ ticket.id }}</td>
+              <td class="p-3">{{ ticket.service_type }}</td>
+              <td class="p-3 {% if ticket.get_status_display|lower == 'closed' %}text-green-500{% endif %}">
+                {{ ticket.get_status_display }}
+              </td>
+              <td class="p-3">{{ ticket.assigned_to }}</td>
+              <td class="p-3">{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+              <td class="p-3">
+                {% if ticket.id %}
+                  <a href="{% url 'accounts:ticket_details' ticket.id %}" class="btn btn-sm bg-orange-500 text-white px-3 py-1.5 rounded-md font-bold hover:bg-orange-600 transition-colors">View</a>
+                {% else %}
+                  <span class="text-white">No ID</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" class="p-5 text-center text-white text-lg bg-blue-900">No tickets found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Inline CSS for table and button styling -->
+<style>
+  .ticket-table th, .ticket-table td {
+    border-bottom: 1px solid #3a5a9b;
+    word-wrap: break-word;
+  }
+  /* Ensure responsiveness for small screens */
+  @media (max-width: 768px) {
+    .ticket-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+</style>
+{% endblock %}

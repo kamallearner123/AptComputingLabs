@@ -1,0 +1,144 @@
+{% extends 'DashBoards/employee_dashboard.html' %}
+{% load static %}
+
+{% block title %}Edit Employee Profile{% endblock %}
+
+{% block content %}
+<div style="max-width: 700px; margin: auto; padding: 20px;">
+  <h2 style="text-align: center; color: #ffffff; font-size: 28px; margin-bottom: 20px;">✏️ Edit Profile</h2>
+
+  <div class="section-box" style="background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <!-- Username Display -->
+    <div style="background: #f4f7fc; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+      <h5 style="color: #ff6600; margin: 0;"><i class="fas fa-user" style="margin-right: 8px;"></i>Username: {{ request.user.username }}</h5>
+    </div>
+
+    <!-- Form -->
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Form Errors -->
+      {% if form.errors %}
+        <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+          <strong>Please correct the following errors:</strong>
+          <ul>
+            {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                <li>{{ field|title }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Personal Information -->
+      <h6 style="color: #ff6600; margin-bottom: 15px; border-bottom: 1px solid #ff6600; padding-bottom: 5px;">Personal Information</h6>
+      <div class="form-group mb-3">
+        <label for="{{ form.full_name.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-id-card" style="margin-right: 5px;"></i>Full Name</label>
+        {{ form.full_name }}
+        {% if form.full_name.errors %}
+          <small style="color: #dc3545;">{{ form.full_name.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        <label for="{{ form.date_of_birth.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-calendar-alt" style="margin-right: 5px;"></i>Date of Birth</label>
+        {{ form.date_of_birth }}
+        {% if form.date_of_birth.errors %}
+          <small style="color: #dc3545;">{{ form.date_of_birth.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        <label for="{{ form.role.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-briefcase" style="margin-right: 5px;"></i>Role</label>
+        {{ form.role }}
+        {% if form.role.errors %}
+          <small style="color: #dc3545;">{{ form.role.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+
+      <!-- Contact Information -->
+      <h6 style="color: #ff6600; margin: 20px 0 15px; border-bottom: 1px solid #ff6600; padding-bottom: 5px;">Contact Information</h6>
+      <div class="form-group mb-3">
+        <label for="{{ form.email.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-envelope" style="margin-right: 5px;"></i>Email</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <small style="color: #dc3545;">{{ form.email.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        <label for="{{ form.phone_number.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-phone" style="margin-right: 5px;"></i>Phone Number</label>
+        {{ form.phone_number }}
+        {% if form.phone_number.errors %}
+          <small style="color: #dc3545;">{{ form.phone_number.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        <label for="{{ form.address.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i>Address</label>
+        {{ form.address }}
+        {% if form.address.errors %}
+          <small style="color: #dc3545;">{{ form.address.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+
+      <!-- Profile Picture -->
+      <h6 style="color: #ff6600; margin: 20px 0 15px; border-bottom: 1px solid #ff6600; padding-bottom: 5px;">Profile Picture</h6>
+      <div class="form-group mb-3">
+        <label for="{{ form.profile_picture.id_for_label }}" style="color: #444; font-weight: 500;"><i class="fas fa-image" style="margin-right: 5px;"></i>Profile Picture</label>
+        {% if form.instance.profile_picture %}
+          <div style="margin-bottom: 10px;">
+            <img src="{{ form.instance.profile_picture.url }}" alt="Current Profile Picture" style="max-width: 150px; border-radius: 8px;">
+            <p style="color: #666; font-size: 14px;">Current image: {{ form.instance.profile_picture.name }}</p>
+          </div>
+        {% else %}
+          <p style="color: #666; font-size: 14px;">No profile picture uploaded.</p>
+        {% endif %}
+        {{ form.profile_picture }}
+        <small style="color: #666; display: block;">Max size: 2MB. Supported formats: JPG, PNG.</small>
+        {% if form.profile_picture.errors %}
+          <small style="color: #dc3545;">{{ form.profile_picture.errors|join:", " }}</small>
+        {% endif %}
+      </div>
+
+      <!-- Submit Button -->
+      <div style="text-align: center; margin-top: 25px;">
+        <button type="submit" class="btn btn-success" style="background-color: #28a745; border: none; padding: 10px 30px; border-radius: 6px; font-weight: bold; transition: background-color 0.2s;">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Back Button -->
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{% url 'accounts:view-employee-profile' %}" class="btn btn-warning" style="background-color: #ff6600; color: white; padding: 10px 30px; border-radius: 6px; text-decoration: none; transition: background-color 0.2s;">🔙 Back to Profile</a>
+  </div>
+</div>
+
+<!-- Inline CSS for form styling and black field values -->
+<style>
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #000000 !important; /* Black for field values and placeholders */
+  }
+  .form-group input[type="file"] {
+    color: #000000 !important; /* Black for file input text */
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  .btn-success:hover {
+    background-color: #218838 !important;
+  }
+  .btn-warning:hover {
+    background-color: #e65c00 !important;
+  }
+</style>
+{% endblock %}

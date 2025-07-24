@@ -1,0 +1,48 @@
+{% extends "DashBoards/base_dash_board.html" %}
+
+{% block content %}
+    <h1>Create Project</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="phase">Phase:</label>
+        <select id="phase" name="phase">
+            <option value="Initiation">Initiation</option>
+            <option value="Planning">Planning</option>
+            <option value="Execution">Execution</option>
+            <option value="Monitoring">Monitoring</option>
+            <option value="Closure">Closure</option>
+        </select><br><br>
+
+        <label for="risk">Risk Level:</label>
+        <select id="risk" name="risk">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select><br><br>
+
+        <label for="working_people">Working People (Employee IDs, hold Ctrl/Cmd to select multiple):</label>
+        <select id="working_people" name="working_people" multiple>
+            {% for employee in employees %}
+                <option value="{{ employee.id }}">{{ employee.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes"></textarea><br><br>
+
+        <label for="hours">Hours:</label>
+        <input type="number" step="0.01" id="hours" name="hours"><br><br>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date"><br><br>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date"><br><br>
+
+        <button type="submit">Create Project</button>
+    </form>
+{% endblock content %}

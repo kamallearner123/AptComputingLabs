@@ -1,0 +1,128 @@
+{% extends 'DashBoards/base_dash_board.html' %}
+{% load static %}
+
+{% block title %}Home - Smart Tracker{% endblock %}
+
+{% block content %}
+<!-- Tailwind CSS is already included in base.html -->
+<style>
+  /* Custom animations for cards */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-card {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+  /* Carousel styles */
+  .carousel-item {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .carousel-item:not(.active) {
+    opacity: 0;
+    transform: translateX(100%);
+    position: absolute;
+  }
+  .carousel-item.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="py-16 text-center">
+  <h2 class="text-4xl font-bold text-white mb-4 animate-card">Welcome to Smart Car Service Tracker</h2>
+  <p class="text-lg text-gray-200 max-w-2xl mx-auto">Manage your car services efficiently with our customer and service advisor portals.</p>
+</section>
+
+<!-- User Section -->
+<div class="user-section container mx-auto px-4 py-12">
+  <div class="flex flex-wrap justify-around gap-8">
+    <!-- Customer Card
+    <div class="user-card bg-white bg-opacity-90 rounded-xl shadow-lg p-8 text-center w-full md:w-5/12 transform hover:scale-105 transition-transform duration-300 animate-card">
+      <img src="{% static 'accounts/images/customer.png' %}" alt="Customer" class="w-32 h-auto mx-auto mb-6 rounded-lg">
+      <h3 class="text-2xl font-semibold text-blue-900 mb-4">Customer Portal</h3>
+      <div class="flex justify-center gap-4">
+        <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">Login</a>
+        <a href="{% url 'accounts:signup' %}" class="bg-yellow-400 text-black px-6 py-2 rounded-lg hover:bg-yellow-500 transition-colors">Signup</a>
+      </div>
+    </div> -->
+
+    <!-- Employee Card -->
+    <div class="user-card bg-white bg-opacity-90 rounded-xl shadow-lg p-8 text-center w-full md:w-5/12 transform hover:scale-105 transition-transform duration-300 animate-card" style="animation-delay: 0.2s;">
+      <img src="{% static 'accounts/images/service_advisor.png' %}" alt="Service Advisor" class="w-32 h-auto mx-auto mb-6 rounded-lg">
+      <h3 class="text-2xl font-semibold text-blue-900 mb-4">Service Center Employee Portal</h3>
+      <div class="flex justify-center gap-4">
+        <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">Login</a>
+        <a href="{% url 'accounts:signup' %}" class="bg-yellow-400 text-black px-6 py-2 rounded-lg hover:bg-yellow-500 transition-colors">Signup</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carousel for Car Images -->
+<section class="container mx-auto px-4 py-16">
+  <h2 class="text-3xl font-bold text-white text-center mb-8">Our Services</h2>
+  <div class="relative w-full max-w-4xl mx-auto">
+    <div id="carousel" class="relative h-64 md:h-80 overflow-hidden rounded-xl">
+      <div class="carousel-item active w-full h-full">
+        <img src="{% static 'accounts/images/car1.jpeg' %}" alt="Car Service 1" class="w-full h-full object-cover"/>
+        <div class="absolute bottom-0 bg-black bg-opacity-50 text-white p-4 w-full">
+          <p>Premium Car Maintenance</p>
+        </div>
+      </div>
+      <div class="carousel-item w-full h-full">
+        <img src="{% static 'accounts/images/car2.jpeg' %}" alt="Car Service 2" class="w-full h-full object-cover"/>
+        <div class="absolute bottom-0 bg-black bg-opacity-50 text-white p-4 w-full">
+          <p>Expert Diagnostic Services</p>
+        </div>
+      </div>
+      <div class="carousel-item w-full h-full">
+        <img src="{% static 'accounts/images/car3.jpeg' %}" alt="Car Service 3" class="w-full h-full object-cover"/>
+        <div class="absolute bottom-0 bg-black bg-opacity-50 text-white p-4 w-full">
+          <p>Comprehensive Repairs</p>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel Controls -->
+    <button id="prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+<!-- JavaScript for Carousel -->
+<script>
+  const carousel = document.getElementById('carousel');
+  const items = carousel.querySelectorAll('.carousel-item');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let current = 0;
+
+  function showSlide(index) {
+    items.forEach((item, i) => {
+      item.classList.toggle('active', i === index);
+    });
+  }
+
+  prev.addEventListener('click', () => {
+    current = (current === 0) ? items.length - 1 : current - 1;
+    showSlide(current);
+  });
+
+  next.addEventListener('click', () => {
+    current = (current === items.length - 1) ? 0 : current + 1;
+    showSlide(current);
+  });
+
+  // Auto-slide every 5 seconds
+  setInterval(() => {
+    current = (current === items.length - 1) ? 0 : current + 1;
+    showSlide(current);
+  }, 5000);
+</script>
+{% endblock %}

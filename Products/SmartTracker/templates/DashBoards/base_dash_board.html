@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Tracker System</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  {% block head %}
+  {% endblock %}
+  <style>
+    .sidebar {
+      transition: all 0.3s ease;
+      position: fixed;
+      top: 150px;
+      left: 0;
+      height: calc(100vh - 150px);
+      overflow-y: auto;
+      background-color: #ffffff; /* bg-gray-100 */
+    }
+    .sidebar-hidden {
+      display: none;
+    }
+    .dark-mode {
+      background: #e5e7eb;
+    }
+    .dark-mode header, .dark-mode footer {
+      background-color: #000000;
+    }
+    .dark-mode .sidebar {
+      background-color: #8893a7;
+    }
+    .dark-mode .sidebar a {
+      color: #e2e8f0 !important;
+    }
+    .dark-mode .sidebar a:hover {
+      color: #1e3c72 !important;
+    }
+    .dark-mode #mainContent {
+      background-color: #1e3c72;
+      color: #ffffff;
+    }
+    input, select, textarea {
+      color: #000000 !important;
+    }
+    .sidebar a {
+      color: #000000 !important;
+      transition: color 0.3s ease;
+    }
+    .sidebar a:hover {
+      color: #1e3c72 !important;
+    }
+    .sidebar-label {
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .sidebar-label:hover {
+      color: #1e3c72;
+    }
+    .label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .label-with-icon i {
+      color: #000000;
+      font-size: 1rem;
+    }
+    .sidebar a:hover .label-with-icon i {
+      color: #1e3c72;
+    }
+    .profile-section {
+      border-bottom: 1px solid #0a0a0a;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    .dark-mode .profile-section {
+      border-bottom-color: #9ca3af;
+    }
+    #toggleSidebar {
+      transition: transform 0.3s ease;
+    }
+    .sidebar-hidden #toggleSidebar {
+      transform: rotate(45deg);
+      position: fixed;
+      left: 16px;
+      top: 16px;
+      z-index: 20;
+    }
+    #mainContent {
+      background-color: #1e3c72;
+      color: #ffffff;
+      padding: 2rem; /* Increased padding for better spacing */
+      width: 100%;
+    }
+    .content-container {
+      transition: margin-left 0.3s ease;
+      /* Removed margin */
+      width: 100%; /* Full width to avoid gaps */
+      color: dark blue;
+    }
+    .sidebar-hidden ~ .content-container {
+      margin-left: 0;
+    }
+    @media (min-width: 640px) {
+      .sidebar {
+        width: 18rem;
+      }
+      #mainContent {
+        padding: 2.5rem; /* sm:p-10 */
+      }
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        width: 20rem;
+      }
+      .content-container {
+        margin-left: 15rem; /* Matches sidebar width */
+        color: dark blue;
+      }
+      #mainContent {
+        padding: 3rem; /* md:p-12 */
+      }
+    }
+    @media (max-width: 640px) {
+      .sidebar {
+        width: 12rem;
+      }
+      .content-container {
+        margin-left: 12rem; /* Matches sidebar width */
+        color: dark blue;
+      }
+      #mainContent {
+        padding: 1.5rem; /* sm:p-6 */
+      }
+    }
+    .sidebar a:hover {
+      background-color: #e5e7eb; /* bg-gray-200 */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-black p-4 shadow-md flex items-center justify-between min-h-[150px] sticky top-0 z-30 relative">
+    <!-- Left: Logo -->
+    <div class="flex items-center z-10">
+      <div class="bg-black-200 p-2 rounded-lg">
+        <img src="/static/images/CompanyLogo.png" alt="Company Logo" class="h-20 w-auto object-contain border-2 border-black" />
+      </div>
+    </div>
+
+    <!-- Center: Title -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+      <h1 class="text-5xl font-extrabold text-white tracking-tight pointer-events-auto">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">Smart</span>
+        <span class="text-white"> Tracker</span>
+      </h1>
+    </div>
+  </header>
+
+  <!-- Sidebar and Main Content -->
+  <div class="flex relative flex-1">
+    {% if user.is_authenticated %}
+      <aside id="sidebar" class="sidebar w-64 p-4 z-10">
+        <!-- Sidebar Toggle Button (Pin) -->
+        <button id="toggleSidebar" class="absolute top-4 -right-8 text-gray-300 hover:text-yellow-300 focus:outline-none">
+          <i class="fas fa-thumbtack text-xl"></i>
+        </button>
+        <!-- Profile Section -->
+        <div class="profile-section flex items-center space-x-2 mb-4">
+          {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="{{ user.full_name }}'s Profile Picture" class="h-10 w-10 rounded-full border-2 border-yellow-300 object-cover" />
+          {% else %}
+            <div class="h-10 w-10 rounded-full bg-yellow-400 flex items-center justify-center text-gray-800">
+              <i class="fas fa-user"></i>
+            </div>
+          {% endif %}
+          <span class="bg-blue-800 text-white text-sm font-semibold px-3 py-1 rounded-full">{{ user.full_name|default:user.username }}</span>
+        </div>
+        <!-- Sidebar Menu -->
+        <ul class="space-y-3">
+          <li>
+            <a href="{% url 'accounts:dashboard' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="dashboard">
+              <span class="label-with-icon"><i class="fas fa-home"></i> Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:view-employee-profile' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="view-profile">
+              <span class="label-with-icon"><i class="fas fa-user"></i> View Profile</span>
+            </a>
+          </li>
+          <!-- <li>
+            <a href="{% url 'accounts:edit-employee-profile' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="edit-profile">
+              <span class="label-with-icon"><i class="fas fa-user-edit"></i> Edit Profile</span>
+            </a>
+          </li> -->
+          <li>
+            <a href="{% url 'accounts:view_my_tickets' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="my-tickets">
+              <span class="label-with-icon"><i class="fas fa-ticket-alt"></i> My Tickets</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:view_all_tickets' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="all-tickets">
+              <span class="label-with-icon"><i class="fas fa-list"></i> All Tickets</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:create_ticket' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="create-ticket">
+              <span class="label-with-icon"><i class="fas fa-plus-circle"></i> New Ticket</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:logout' %}" class="sidebar-label flex items-center p-2 rounded-lg hover:bg-gray-200 transition-colors" data-section="logout">
+              <span class="label-with-icon"><i class="fas fa-sign-out-alt"></i> Logout</span>
+            </a>
+          </li>
+          <li class="mt-4">
+            <div class="bg-gray-200 p-2 rounded-lg">
+              <img src="/static/images/CazeLogo.webp" alt="CazeLog" class="h-20 w-auto object-contain border-2 border-white" />
+            </div>
+          </li>
+        </ul>
+      </aside>
+    {% else %}
+      <!-- Guest Sidebar (Minimal) -->
+      <aside id="sidebar" class="sidebar w-64 p-4 z-10 sidebar-hidden">
+        <div class="flex items-center space-x-2 mb-4">
+          <div class="h-10 w-10 rounded-full bg-yellow-400 flex items-center justify-center text-gray-800">
+            <i class="fas fa-user"></i>
+          </div>
+          <span class="bg-blue-800 text-white text-sm font-semibold px-3 py-1 rounded-full">Guest</span>
+        </div>
+        <div class="bg-gray-200 p-2 rounded-lg">
+          <img src="/static/images/CazeLogo.webp" alt="CazeLog" class="h-20 w-auto object-contain border-2 border-white" />
+        </div>
+      </aside>
+    {% endif %}
+
+    <!-- Content Container -->
+    <div class="content-container">
+      <!-- Main Content -->
+      <main id="mainContent" class="w-full overflow-auto">
+        {% block content %}
+          <!-- Individual page content will go here -->
+        {% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-black bg-opacity-30 p-4 text-center text-sm text-black-300 flex-shrink-0">
+    © 2025 Smart Tracker System | All rights reserved | Powered by 
+    <img src="/static/images/logo.png" alt="CazeLabs Logo" class="h-6 w-auto inline-block align-middle" /> CazeLabs
+  </footer>
+
+  <!-- JavaScript for Sidebar Toggle -->
+  <script>
+    // Sidebar Toggle
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const contentContainer = document.querySelector('.content-container');
+    if (toggleSidebar && sidebar && contentContainer) {
+      toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-hidden');
+      });
+    }
+  </script>
+</body>
+</html>

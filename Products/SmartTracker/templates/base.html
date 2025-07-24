@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Smart Tracker System{% endblock %}</title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- FontAwesome for Icons (optional, for logo or nav icons) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Custom styles for gradient and sticky footer */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+    }
+    main {
+      flex: 1;
+    }
+    /* Smooth page transition */
+    .page-transition {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    .page-transition.loading {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="text-white font-sans">
+  <!-- Header -->
+  <header class="bg-black bg-opacity-40 py-4">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <!-- Logo and Title -->
+      <div class="flex items-center space-x-3">
+        <i class="fas fa-car text-3xl text-yellow-400"></i>
+        <h1 class="text-2xl md:text-3xl font-bold">Smart Car Service Tracker</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 page-transition">
+    {% block content %}
+    <!-- Individual page content will go here -->
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black bg-opacity-30 py-4 mt-auto">
+    <div class="container mx-auto px-4 text-center text-sm">
+      © 2025 Smart Tracker System | All rights reserved
+    </div>
+  </footer>
+
+  <!-- jQuery for Interactivity -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Simple page transition effect
+    $(document).ready(function() {
+      $('body').addClass('page-transition');
+      $(window).on('beforeunload', function() {
+        $('body').addClass('loading');
+      });
+    });
+
+    // Mobile menu toggle (if needed for future enhancements)
+    function toggleMobileMenu() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
