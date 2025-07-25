@@ -1,0 +1,4 @@
+2025-07-25 15:58:20,640 - INFO - Processing file: /home/kamal/Documents/1.Git/BloomWS/ResumeParser/resume.doc (extension: .doc)
+2025-07-25 15:58:20,646 - INFO - Extracted text with antiword
+2025-07-25 15:58:21,718 - INFO - Extracted name: Filling I-129
+2025-07-25 15:58:21,722 - INFO -  extracted address: ['US', 'Bengaluru', 'Fremont', 'India', 'UK', 'Canada']
