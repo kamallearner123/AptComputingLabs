@@ -1,0 +1,216 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Tkinter Programs for Raspberry Pi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+        }
+        h2 {
+            color: #004080;
+        }
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .program {
+            background-color: #f9f9f9;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #e8ecef;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .note {
+            color: #d9534f;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Tkinter Programs for Raspberry Pi</h1>
+    <div class="section">
+        <h2>Overview</h2>
+        <p>This page provides six beginner-friendly Tkinter programs for your Raspberry Pi, demonstrating core GUI functionalities like labels, buttons, entry fields, listboxes, radio buttons, and text widgets. These programs run on Raspberry Pi OS with a desktop environment and require no additional hardware. The programs are:</p>
+        <ul>
+            <li><strong>Hello World GUI</strong>: Displays a label and a button to change the text.</li>
+            <li><strong>Counter App</strong>: Increments, decrements, and resets a counter using buttons.</li>
+            <li><strong>Simple Calculator</strong>: Performs addition and subtraction with two input numbers.</li>
+            <li><strong>To-Do List App</strong>: Manages tasks with add and clear functionality using a listbox.</li>
+            <li><strong>Color Changer</strong>: Changes the window background color using radio buttons.</li>
+            <li><strong>Simple Text Editor</strong>: Allows text editing with save and load functionality.</li>
+        </ul>
+        <p>Each program is linked below for download, along with setup instructions.</p>
+    </div>
+
+    <div class="section">
+        <h2>Prerequisites</h2>
+        <p>Before running the programs, ensure the following:</p>
+        <ul>
+            <li><strong>Raspberry Pi OS</strong>: Preferably the full version with desktop (GUI).</li>
+            <li><strong>Python 3</strong>: Verify with <code>python3 --version</code>.</li>
+            <li><strong>Tkinter</strong>: Included with Python 3. Verify with <code>python3 -m tkinter</code>. Install if needed:
+                <pre><code>sudo apt install python3-tk</code></pre>
+            </li>
+            <li><strong>No Hardware Required</strong>: These programs use only Tkinter and run without additional hardware like GPS or GPIO.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Programs</h2>
+        <div class="program">
+            <h3>Hello World GUI</h3>
+            <p><strong>File:</strong> <a href="hello_gui.py" download>hello_gui.py</a></p>
+            <p><strong>Description:</strong> A simple Tkinter GUI with a label displaying "Hello, Tkinter!" and a button that changes the text to "Welcome to Tkinter!" when clicked.</p>
+            <p><strong>Dependencies:</strong> None (Tkinter included with Python 3).</p>
+            <p><strong>Run:</strong> <code>python3 hello_gui.py</code></p>
+        </div>
+        <div class="program">
+            <h3>Counter App</h3>
+            <p><strong>File:</strong> <a href="counter_gui.py" download>counter_gui.py</a></p>
+            <p><strong>Description:</strong> A Tkinter GUI with buttons to increment, decrement, and reset a counter displayed on a label.</p>
+            <p><strong>Dependencies:</strong> None.</p>
+            <p><strong>Run:</strong> <code>python3 counter_gui.py</code></p>
+        </div>
+        <div class="program">
+            <h3>Simple Calculator</h3>
+            <p><strong>File:</strong> <a href="calc_gui.py" download>calc_gui.py</a></p>
+            <p><strong>Description:</strong> A Tkinter GUI that takes two numbers as input and performs addition or subtraction, displaying the result.</p>
+            <p><strong>Dependencies:</strong> None.</p>
+            <p><strong>Run:</strong> <code>python3 calc_gui.py</code></p>
+            <p class="note"><strong>Note:</strong> Enter valid numbers in the input fields to avoid "Invalid input" errors.</p>
+        </div>
+        <div class="program">
+            <h3>To-Do List App</h3>
+            <p><strong>File:</strong> <a href="todo_gui.py" download>todo_gui.py</a></p>
+            <p><strong>Description:</strong> A Tkinter GUI to manage a to-do list, allowing users to add tasks to a listbox and clear all tasks.</p>
+            <p><strong>Dependencies:</strong> None.</p>
+            <p><strong>Run:</strong> <code>python3 todo_gui.py</code></p>
+            <p class="note"><strong>Note:</strong> Enter a task before clicking "Add Task" to avoid empty entries.</p>
+        </div>
+        <div class="program">
+            <h3>Color Changer</h3>
+            <p><strong>File:</strong> <a href="color_gui.py" download>color_gui.py</a></p>
+            <p><strong>Description:</strong> A Tkinter GUI that changes the window’s background color using radio buttons (white, red, blue, green).</p>
+            <p><strong>Dependencies:</strong> None.</p>
+            <p><strong>Run:</strong> <code>python3 color_gui.py</code></p>
+        </div>
+        <div class="program">
+            <h3>Simple Text Editor</h3>
+            <p><strong>File:</strong> <a href="text_gui.py" download>text_gui.py</a></p>
+            <p><strong>Description:</strong> A Tkinter GUI with a text area for editing text, including buttons to save to and load from .txt files.</p>
+            <p><strong>Dependencies:</strong> None.</p>
+            <p><strong>Run:</strong> <code>python3 text_gui.py</code></p>
+            <p class="note"><strong>Note:</strong> Uses file dialogs to select save/load locations. Save files with .txt extension.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Running the Programs</h2>
+        <ol>
+            <li>Save <code>hello_gui.py</code>, <code>counter_gui.py</code>, <code>calc_gui.py</code>, <code>todo_gui.py</code>, <code>color_gui.py</code>, and <code>text_gui.py</code> in the same directory as this HTML file (e.g., <code>/home/pi/tkinter_programs/</code>).</li>
+            <li>Ensure Tkinter is installed (see Prerequisites).</li>
+            <li>Open this HTML file in a browser: <code>file:///home/pi/tkinter_programs/tkinter_basic_programs.html</code>.</li>
+            <li>Download or verify Python files are in the directory.</li>
+            <li>Run each program from the terminal:
+                <pre><code>python3 hello_gui.py
+python3 counter_gui.py
+python3 calc_gui.py
+python3 todo_gui.py
+python3 color_gui.py
+python3 text_gui.py</code></pre>
+            </li>
+            <li>For auto-run on boot, add to <code>crontab</code> (<code>crontab -e</code>) or <code>/home/pi/.config/lxsession/LXDE-pi/autostart</code>.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        <p>If you encounter issues running the programs:</p>
+        <ul>
+            <li><strong>Tkinter Not Found:</strong> Ensure Tkinter is installed: <code>sudo apt install python3-tk</code>.</li>
+            <li><strong>No GUI Display:</strong> Ensure Raspberry Pi OS with desktop is installed and you’re running in a GUI environment (not terminal-only).</li>
+            <li><strong>Errors in Calculator:</strong> Input valid numbers (e.g., 5, 3.14) to avoid "Invalid input" messages.</li>
+            <li><strong>General Issues:</strong> Check Python version (<code>python3 --version</code>) and ensure scripts are run with <code>python3</code>.</li>
+            <li><strong>File Dialog Issues (Text Editor):</strong> Ensure you have write permissions in the directory where you save/load files.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Additional Notes</h2>
+        <ul>
+            <li><strong>GUI Environment:</strong> These programs require a graphical interface (e.g., Raspberry Pi OS with desktop).</li>
+            <li><strong>Web Hosting:</strong> To host this page, install Apache (<code>sudo apt install apache2</code>) and move files to <code>/var/www/html/</code>. Access via <code>http://&lt;pi-ip-address&gt;/tkinter_basic_programs.html</code>.</li>
+            <li><strong>Customization:</strong> Modify the Python scripts to add features (e.g., more colors in Color Changer, additional operations in Calculator).</li>
+            <li><strong>Learning Resources:</strong> For more Tkinter examples, consult the <a href="https://docs.python.org/3/library/tkinter.html">Python Tkinter documentation</a> or Raspberry Pi forums.</li>
+        </ul>
+    </div>
+</body>
+</html>
