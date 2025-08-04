@@ -1,0 +1,37 @@
+[tool.pytest.ini_options]
+# Pytest configuration
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Test discovery
+addopts = [
+    "-v",                    # Verbose output
+    "--tb=short",           # Short traceback format
+    "--strict-markers",     # Strict marker checking
+    "--strict-config",      # Strict config checking
+    "--color=yes",          # Colored output
+]
+
+# Markers
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "unit: marks tests as unit tests",
+    "integration: marks tests as integration tests",
+    "parametrize: marks parametrized tests",
+]
+
+# Coverage options (if using pytest-cov)
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "setup.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
