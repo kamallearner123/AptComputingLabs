@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Django Deployment Checklist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    input, select {
+      padding: 8px;
+      margin-top: 5px;
+      width: 300px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .checklist {
+      margin-top: 40px;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .note {
+      font-style: italic;
+      color: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Interactive Django Deployment Checklist</h1>
+
+  <label for="cloud">Which cloud platform are you using?</label>
+  <select id="cloud">
+    <option value="azure">Azure</option>
+    <option value="aws">AWS</option>
+    <option value="gcp">Google Cloud</option>
+  </select>
+
+  <label for="projectPath">What is your Django project folder path?</label>
+  <input type="text" id="projectPath" placeholder="e.g., /home/user/myproject">
+
+  <label for="db">Which database are you using?</label>
+  <select id="db">
+    <option value="postgres">PostgreSQL</option>
+    <option value="mysql">MySQL</option>
+    <option value="sqlite">SQLite</option>
+  </select>
+
+  <button onclick="generateChecklist()">Generate Checklist</button>
+
+  <div class="checklist" id="checklist"></div>
+
+  <script>
+    function generateChecklist() {
+      const cloud = document.getElementById('cloud').value;
+      const path = document.getElementById('projectPath').value;
+      const db = document.getElementById('db').value;
+
+      let checklistHTML = `<h2>✅ Deployment Checklist for ${cloud.toUpperCase()}</h2>`;
+      checklistHTML += `<p><strong>Project Path:</strong> ${path}</p>`;
+      checklistHTML += `<p><strong>Database:</strong> ${db}</p>`;
+      checklistHTML += `<ul>`;
+
+      checklistHTML += `
+        <li><input type="checkbox"> Install <code>python-dotenv</code> and <code>whitenoise</code></li>
+        <li><input type="checkbox"> Set up virtual environment</li>
+        <li><input type="checkbox"> Run <code>python manage.py collectstatic</code></li>
+        <li><input type="checkbox"> Create deployment settings file (e.g., <code>deployment.py</code>)</li>
+        <li><input type="checkbox"> Modify <code>wsgi.py</code> to load deployment settings</li>
+        <li><input type="checkbox"> Create <code>.production.py</code> for build config</li>
+        <li><input type="checkbox"> Run <code>pip freeze > requirements.txt</code></li>
+        <li><input type="checkbox"> Set environment variables in ${cloud.toUpperCase()} dashboard</li>
+        <li><input type="checkbox"> Push code to GitHub and connect repo to ${cloud.toUpperCase()} App Service</li>
+        <li><input type="checkbox"> Enable HTTPS and configure SSL certificates</li>
+        <li><input type="checkbox"> Test app via cloud URL or custom domain</li>
+        <li><input type="checkbox"> Monitor logs and set up alerts</li>
+        <li><input type="checkbox"> Document deployment steps and create rollback plan</li>
+      `;
+
+      if (db === 'postgres') {
+        checklistHTML += `<li><input type="checkbox"> Configure PostgreSQL connection string in environment</li>`;
+      } else if (db === 'mysql') {
+        checklistHTML += `<li><input type="checkbox"> Install <code>mysqlclient</code> and configure MySQL settings</li>`;
+      } else {
+        checklistHTML += `<li><input type="checkbox"> Ensure SQLite file is included and path is correct</li>`;
+      }
+
+      checklistHTML += `</ul>`;
+      checklistHTML += `<p class="note">Tip: Customize this checklist as your project evolves.</p>`;
+
+      document.getElementById('checklist').innerHTML = checklistHTML;
+    }
+  </script>
+
+</body>
+</html>
+
