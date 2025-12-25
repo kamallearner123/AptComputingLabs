@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block title %} — Problems{% endblock %}
+{% block content %}
+  <h2>Practice Problems</h2>
+  <ul>
+    {% for p in problems %}
+      <li><a href="{% url 'judge:problem_detail' p.pk %}">{{ p.title }}</a></li>
+    {% empty %}
+      <li>No problems yet. Admin can add problems.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

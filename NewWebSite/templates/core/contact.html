@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %} — Contact{% endblock %}
+{% block content %}
+  <h2>Contact</h2>
+  <div class="contact-grid">
+    <div>
+      <h3>Reach out</h3>
+      <p>Email: <a href="mailto:{{ org.email }}">{{ org.email }}</a></p>
+      <p>Phone: {{ org.phone }}</p>
+      <p>LinkedIn: <a href="{{ org.linkedin }}">Group</a> • Founder: <a href="{{ org.founder_profile }}">{{ org.founder }}</a></p>
+      <h4>Office</h4>
+      <div class="map-placeholder card">Map placeholder</div>
+    </div>
+    <div>
+      {% if sent %}
+        <p class="notice">Thanks — your message was sent.</p>
+      {% endif %}
+      <form method="post" class="contact-form">
+        {% csrf_token %}
+        <label>Name<input type="text" name="name"></label>
+        <label>Email<input type="email" name="email"></label>
+        <label>Message<textarea name="message"></textarea></label>
+        <button type="submit" class="btn">Send message</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

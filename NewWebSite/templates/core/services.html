@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block title %} — Services{% endblock %}
+{% block content %}
+  <h2>Services & Solutions</h2>
+  <p class="lead">Practical services tailored for students, colleges and enterprise teams.</p>
+  <div class="services-cards">
+    <div class="card">
+      <h4>Online Trainings</h4>
+      <p>{{ services.online }}</p>
+    </div>
+    <div class="card">
+      <h4>On-site Workshops</h4>
+      <p>{{ services.in_class }}</p>
+    </div>
+    <div class="card">
+      <h4>Custom Curriculum</h4>
+      <p>Design a course tailored to your team's needs (IoT, Automotive, Embedded Diagnostics).</p>
+    </div>
+  </div>
+  <p><a class="btn" href="/contact/">Request a Proposal</a></p>
+{% endblock %}

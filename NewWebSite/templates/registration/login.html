@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign in — Apt Computing Labs{% endblock %}
+
+{% block content %}
+<div class="auth-container" style="max-width:520px;margin:2rem auto;padding:1.5rem;background:var(--card-bg);border-radius:12px;box-shadow:0 6px 30px rgba(10,20,40,0.06);">
+  <h2 style="margin:0 0 1rem;color:var(--accent);">Sign in</h2>
+  <p style="margin:0 0 1rem;color:var(--muted);">Use your account to access the coding playground and submissions.</p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div style="margin-bottom:1rem">{{ form.username.label_tag }}<br>{{ form.username }}</div>
+    <div style="margin-bottom:1rem">{{ form.password.label_tag }}<br>{{ form.password }}</div>
+    <button class="btn" type="submit">Sign in</button>
+  </form>
+
+  <p style="margin-top:1rem;color:var(--muted);font-size:0.95rem;">Forgot password? Use the admin to reset or contact the site owner.</p>
+</div>
+{% endblock %}

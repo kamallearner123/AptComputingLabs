@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block title %} — {{ problem.title }}{% endblock %}
+{% block content %}
+  <h2>{{ problem.title }}</h2>
+  <p>{{ problem.description }}</p>
+
+  {% if created %}
+    <p>Your submission was received and stored. Admin will review it. (No remote execution is performed.)</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <label>Language<select name="language">
+      <option value="c">C</option>
+      <option value="cpp">C++</option>
+      <option value="py">Python</option>
+      <option value="rs">Rust</option>
+    </select></label>
+    <label>Code<textarea name="code" rows="12"></textarea></label>
+    <button type="submit">Submit</button>
+  </form>
+
+{% endblock %}

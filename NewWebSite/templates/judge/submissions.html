@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block title %} — My Submissions{% endblock %}
+{% block content %}
+  <h2>Your Submissions</h2>
+  <div class="subs-list">
+    {% for s in subs %}
+      <div class="card sub-item">
+        <div class="sub-meta"><strong>{{ s.problem.title }}</strong> • {{ s.get_language_display }} • <span class="muted">{{ s.created_at }}</span></div>
+        <pre class="code-preview">{{ s.code|truncatechars:400 }}</pre>
+        <div class="verdict">Status: {{ s.verdict }}</div>
+      </div>
+    {% empty %}
+      <p>No submissions yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top 10 DSA Questions — Explained Step‑by‑Step (Python)</title>
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#0e1730; --ink:#e6eefc; --muted:#b5c7f3; --accent:#5aa2ff; --accent2:#8de1ff; --ok:#00d3a7; --warn:#ffd166;
+      --code-bg:#0a1024; --chip:#172143; --border:#20305f;
+    }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+    header { background: linear-gradient(120deg, rgba(90,162,255,.15), rgba(141,225,255,.08)); border-bottom:1px solid var(--border); border-radius: 16px; padding: 26px; }
+    h1{ margin:0 0 10px; font-size: clamp(28px, 4vw, 40px); letter-spacing:.2px }
+    .subtitle{ color: var(--muted); font-size: 15px }
+    .toc{ margin:18px 0 0; display:flex; flex-wrap: wrap; gap:10px }
+    .toc a{ text-decoration:none; color:var(--ink); background:var(--chip); border:1px solid var(--border); padding:8px 12px; border-radius:999px; font-size:14px }
+    .card{ background:var(--panel); border:1px solid var(--border); border-radius: 18px; margin:24px 0; overflow:hidden }
+    .card header{ padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; background: linear-gradient(120deg, rgba(90,162,255,.10), rgba(141,225,255,.04)); }
+    .qid{ background: var(--accent); color:#081226; font-weight:700; padding:6px 10px; border-radius:10px; font-size:13px; letter-spacing:.4px }
+    .qtitle{ font-size:20px; font-weight:700 }
+    .body{ padding: 18px 20px }
+    h3{ margin: 12px 0 6px; font-size: 18px }
+    p{ color: var(--muted); line-height: 1.6; margin: 8px 0 }
+    ul{ margin: 8px 0 8px 18px; color: var(--muted); }
+    .approach{ border-left: 3px solid var(--accent); padding-left: 12px; margin: 10px 0 }
+    .complex{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px }
+    .badge{ background: var(--chip); border:1px solid var(--border); padding:6px 10px; border-radius:10px; font-size: 12px; color: var(--muted) }
+    .code{ background: var(--code-bg); border:1px solid var(--border); padding:14px; border-radius: 12px; overflow:auto; }
+    pre{ margin:0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13.5px; line-height:1.6 }
+    details{ background: rgba(90,162,255,.08); border:1px solid var(--border); border-radius: 12px; padding:10px 12px; margin:12px 0 }
+    details > summary{ cursor:pointer; color: var(--accent2); font-weight:600 }
+    .dryrun{ background: rgba(0,211,167,.09); border:1px dashed #0f6; padding:10px 12px; border-radius: 10px; color:#c9ffef }
+    footer{ position:relative; margin-top:38px; padding: 18px; text-align:center; color: var(--muted); border-top:1px solid var(--border) }
+    .kb{ color: var(--ink); font-weight:600 }
+    .tip{ background: rgba(255,209,102,.1); border:1px solid rgba(255,209,102,.35); color:#ffe7a8; padding:10px 12px; border-radius:10px }
+    .grid2{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px }
+    .right{ text-align:right }
+    .note{ font-size:12.5px; color:#9fb4ef; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Top 10 DSA Questions — Explained Step‑by‑Step (Python)</h1>
+      <div class="subtitle">Each problem has: <span class="kb">Problem → Intuition → Approaches → Complexity → Code → Dry‑run</span>. Copy‑paste ready for class and interviews.</div>
+      <nav class="toc">
+        <a href="#q1">Two Sum (Hash Map)</a>
+        <a href="#q2">Reverse Linked List</a>
+        <a href="#q3">Merge Two Sorted Lists</a>
+        <a href="#q4">Valid Parentheses</a>
+        <a href="#q5">Binary Search</a>
+        <a href="#q6">Maximum Subarray (Kadane)</a>
+        <a href="#q7">Merge Intervals</a>
+        <a href="#q8">Longest Substring (No Repeats)</a>
+        <a href="#q9">Binary Tree Level Order (BFS)</a>
+        <a href="#q10">Kth Largest Element</a>
+      </nav>
+    </header>
+
+    <!-- Helper data structures used in multiple problems -->
+    <section class="card" id="helpers">
+      <header><span class="qid">HELPER</span><span class="qtitle">Shared Data Structures (ListNode, TreeNode)</span></header>
+      <div class="body">
+        <div class="code"><pre>
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+</pre></div>
+        <p class="note">Include this snippet once if you test the linked‑list or tree problems locally.</p>
+      </div>
+    </section>
+
+    <!-- Q1 Two Sum -->
+    <section class="card" id="q1">
+      <header><span class="qid">Q1</span><span class="qtitle">Two Sum — find indices i, j s.t. nums[i] + nums[j] = target</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>As you scan numbers, remember what value would complete the pair (the <em>complement</em>). Use a hash map to check if you've seen it already.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Brute Force:</b> Check all pairs (two loops). <span class="badge">O(n²)</span></li>
+            <li><b>Optimal Hash Map:</b> Store <code>value → index</code>; for each <code>x</code> check <code>target - x</code>. <span class="badge">O(n)</span> time, <span class="badge">O(n)</span> space.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(n)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Create empty map <code>seen</code>.</li>
+            <li>For each index <code>i</code>, value <code>x</code>: compute <code>c = target - x</code>.</li>
+            <li>If <code>c</code> in <code>seen</code> → return <code>[seen[c], i]</code>.</li>
+            <li>Else put <code>seen[x] = i</code> and continue.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+from typing import List
+
+def two_sum(nums: List[int], target: int) -> List[int]:
+    seen = {}
+    for i, x in enumerate(nums):
+        c = target - x
+        if c in seen:
+            return [seen[c], i]
+        seen[x] = i
+    return []  # if no solution
+</pre></div>
+        <div class="dryrun"><b>Dry‑run:</b> nums=[2,7,11,15], target=9 → i=0, seen={2:0}; i=1, x=7, c=2 in seen → return [0,1]</div>
+      </div>
+    </section>
+
+    <!-- Q2 Reverse Linked List -->
+    <section class="card" id="q2">
+      <header><span class="qid">Q2</span><span class="qtitle">Reverse a Singly Linked List</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Walk the list and flip each <code>next</code> pointer to point backward.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Iterative (3 pointers):</b> <code>prev, curr, nxt</code>. <span class="badge">O(n)</span> time, <span class="badge">O(1)</span> space.</li>
+            <li><b>Recursive:</b> Reverse rest, then attach head at the end. <span class="badge">O(n)</span> time, <span class="badge">O(n)</span> space (stack).</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(1) iterative</span></div>
+        <details><summary>Step‑by‑Step (Iterative)</summary>
+          <ul>
+            <li>Initialize <code>prev=None</code>, <code>curr=head</code>.</li>
+            <li>While <code>curr</code>:
+              <ul>
+                <li><code>nxt = curr.next</code></li>
+                <li><code>curr.next = prev</code> (flip link)</li>
+                <li><code>prev = curr</code>; <code>curr = nxt</code></li>
+              </ul>
+            </li>
+            <li>Return <code>prev</code> as new head.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+# Iterative
+
+def reverse_list(head: ListNode) -> ListNode:
+    prev, curr = None, head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev
+
+# Recursive
+
+def reverse_list_recursive(head: ListNode) -> ListNode:
+    if not head or not head.next:
+        return head
+    new_head = reverse_list_recursive(head.next)
+    head.next.next = head
+    head.next = None
+    return new_head
+</pre></div>
+        <div class="dryrun">For 1→2→3: prev=None, curr=1; flip to None←1 2→3; then None←1←2 3; finally None←1←2←3, head=3.</div>
+      </div>
+    </section>
+
+    <!-- Q3 Merge Two Sorted Lists -->
+    <section class="card" id="q3">
+      <header><span class="qid">Q3</span><span class="qtitle">Merge Two Sorted Linked Lists</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Like merging step of merge sort: pick the smaller head repeatedly.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Two‑pointer merge:</b> Dummy head + tail pointer. <span class="badge">O(n+m)</span> time, <span class="badge">O(1)</span> space.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n+m)</span><span class="badge">Space: O(1)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Create dummy node; <code>tail=dummy</code>.</li>
+            <li>While both lists exist, pick smaller node, move <code>tail</code>.</li>
+            <li>Attach remaining nodes.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+
+def merge_two_lists(a: ListNode, b: ListNode) -> ListNode:
+    dummy = tail = ListNode()
+    while a and b:
+        if a.val <= b.val:
+            tail.next, a = a, a.next
+        else:
+            tail.next, b = b, b.next
+        tail = tail.next
+    tail.next = a or b
+    return dummy.next
+</pre></div>
+      </div>
+    </section>
+
+    <!-- Q4 Valid Parentheses -->
+    <section class="card" id="q4">
+      <header><span class="qid">Q4</span><span class="qtitle">Valid Parentheses</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Use a stack to match opening with the next closing bracket type.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Stack:</b> Push opens; on close, check top matches. <span class="badge">O(n)</span> time/space.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(n)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Map closers to openers: <code>{')':'(',']':'[','}':'{'}</code>.</li>
+            <li>Scan chars: push opens; for closers compare against stack pop.</li>
+            <li>Valid if stack empty at end.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+
+def is_valid_parentheses(s: str) -> bool:
+    pairs = {')':'(', ']':'[', '}':'{'}
+    st = []
+    for ch in s:
+        if ch in '([{':
+            st.append(ch)
+        else:
+            if not st or st[-1] != pairs.get(ch, '#'):
+                return False
+            st.pop()
+    return not st
+</pre></div>
+      </div>
+    </section>
+
+    <!-- Q5 Binary Search -->
+    <section class="card" id="q5">
+      <header><span class="qid">Q5</span><span class="qtitle">Binary Search (Iterative)</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Keep halving the search range in a sorted array.</p>
+        </div>
+        <div class="complex"><span class="badge">Time: O(log n)</span><span class="badge">Space: O(1)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Set <code>lo=0, hi=n-1</code>.</li>
+            <li>While <code>lo ≤ hi</code>, mid = <code>(lo+hi)//2</code>.</li>
+            <li>If <code>a[mid]==x</code> return mid; if <code>a[mid]&lt;x</code> move left bound; else move right bound.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+from typing import List
+
+def binary_search(a: List[int], x: int) -> int:
+    lo, hi = 0, len(a)-1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if a[mid] == x:
+            return mid
+        if a[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+</pre></div>
+        <div class="dryrun">a=[1,3,4,8,10], x=8 → lo=0,hi=4, mid=2→4&lt;8→lo=3; mid=3→a[3]=8→return 3.</div>
+      </div>
+    </section>
+
+    <!-- Q6 Maximum Subarray (Kadane) -->
+    <section class="card" id="q6">
+      <header><span class="qid">Q6</span><span class="qtitle">Maximum Subarray Sum (Kadane’s Algorithm)</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Keep best sum ending at current index; drop negative prefixes.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Kadane:</b> <code>curr = max(a[i], curr+a[i])</code>, <code>best = max(best, curr)</code>. <span class="badge">O(n)</span> time, <span class="badge">O(1)</span> space.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(1)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Initialize <code>curr = best = a[0]</code>.</li>
+            <li>For each <code>a[i]</code> from index 1:
+              <ul>
+                <li><code>curr = max(a[i], curr + a[i])</code></li>
+                <li><code>best = max(best, curr)</code></li>
+              </ul>
+            </li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+from typing import List
+
+def max_subarray(a: List[int]) -> int:
+    curr = best = a[0]
+    for x in a[1:]:
+        curr = max(x, curr + x)
+        best = max(best, curr)
+    return best
+</pre></div>
+        <div class="dryrun">a=[-2,1,-3,4,-1,2,1,-5,4] → best=6 for [4,-1,2,1].</div>
+      </div>
+    </section>
+
+    <!-- Q7 Merge Intervals -->
+    <section class="card" id="q7">
+      <header><span class="qid">Q7</span><span class="qtitle">Merge Overlapping Intervals</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Sort by start; extend the current interval while overlaps continue.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Sort + Sweep:</b> Keep a result stack; merge if current.start ≤ last.end.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n log n)</span><span class="badge">Space: O(n)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Sort intervals by start.</li>
+            <li>For each interval:
+              <ul>
+                <li>If result empty or no overlap → append.</li>
+                <li>Else update the last end: <code>last.end = max(last.end, cur.end)</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+from typing import List
+
+def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
+    intervals.sort(key=lambda x: x[0])
+    res = []
+    for s, e in intervals:
+        if not res or s > res[-1][1]:
+            res.append([s, e])
+        else:
+            res[-1][1] = max(res[-1][1], e)
+    return res
+</pre></div>
+        <div class="dryrun">[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]].</div>
+      </div>
+    </section>
+
+    <!-- Q8 Longest Substring Without Repeating Characters -->
+    <section class="card" id="q8">
+      <header><span class="qid">Q8</span><span class="qtitle">Longest Substring Without Repeating Characters (Sliding Window)</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Maintain a window with unique chars by moving the left pointer past duplicates.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Sliding Window + Map:</b> Track last seen index per character. <span class="badge">O(n)</span>.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(k)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Use <code>last</code> dict; <code>left=0</code>, <code>best=0</code>.</li>
+            <li>For each <code>right, ch</code>:
+              <ul>
+                <li>If <code>ch</code> seen inside window → shift <code>left</code> to <code>last[ch]+1</code>.</li>
+                <li>Update <code>last[ch]=right</code> and <code>best=max(best, right-left+1)</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+
+def length_of_longest_substring(s: str) -> int:
+    last = {}
+    left = best = 0
+    for right, ch in enumerate(s):
+        if ch in last and last[ch] >= left:
+            left = last[ch] + 1
+        last[ch] = right
+        best = max(best, right - left + 1)
+    return best
+</pre></div>
+        <div class="dryrun">s="abcabcbb" → best=3 ("abc").</div>
+      </div>
+    </section>
+
+    <!-- Q9 Binary Tree Level Order Traversal -->
+    <section class="card" id="q9">
+      <header><span class="qid">Q9</span><span class="qtitle">Binary Tree Level Order Traversal (BFS)</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>Process nodes level by level using a queue.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Breadth‑First Search:</b> Queue nodes; for each level, pop size times and push children.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n)</span><span class="badge">Space: O(w)</span></div>
+        <details><summary>Step‑by‑Step</summary>
+          <ul>
+            <li>Push root into queue.</li>
+            <li>While queue not empty: record <code>level_size</code>, pop that many nodes → gather values; push children.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+from collections import deque
+
+def level_order(root: TreeNode):
+    if not root: return []
+    q = deque([root])
+    ans = []
+    while q:
+        size = len(q)
+        level = []
+        for _ in range(size):
+            node = q.popleft()
+            level.append(node.val)
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+        ans.append(level)
+    return ans
+</pre></div>
+      </div>
+    </section>
+
+    <!-- Q10 Kth Largest Element -->
+    <section class="card" id="q10">
+      <header><span class="qid">Q10</span><span class="qtitle">Kth Largest Element in an Array</span></header>
+      <div class="body">
+        <div class="approach">
+          <h3>Intuition</h3>
+          <p>You don't need full sort. Keep a small heap of size k, or use Quickselect.</p>
+          <h3>Approaches</h3>
+          <ul>
+            <li><b>Min‑Heap of size k:</b> Keep k largest seen so far. <span class="badge">O(n log k)</span>.</li>
+            <li><b>Quickselect (avg):</b> Partition like quicksort. <span class="badge">O(n) avg</span>, <span class="badge">O(n²) worst</span>.</li>
+          </ul>
+        </div>
+        <div class="complex"><span class="badge">Time: O(n log k)</span><span class="badge">Space: O(k)</span></div>
+        <details><summary>Step‑by‑Step (Min‑Heap)</summary>
+          <ul>
+            <li>Push elements into a min‑heap.</li>
+            <li>If heap size exceeds k → pop smallest.</li>
+            <li>Answer is the heap root.</li>
+          </ul>
+        </details>
+        <div class="code"><pre>
+import heapq
+from typing import List
+
+def kth_largest(nums: List[int], k: int) -> int:
+    heap = []
+    for x in nums:
+        if len(heap) < k:
+            heapq.heappush(heap, x)
+        else:
+            if x > heap[0]:
+                heapq.heapreplace(heap, x)
+    return heap[0]
+</pre></div>
+        <details><summary>Quickselect (Alternative)</summary>
+          <div class="code"><pre>
+import random
+
+def kth_largest_quickselect(nums: List[int], k: int) -> int:
+    k_idx = len(nums) - k  # kth largest → (n-k)th index in sorted ascending
+
+    def select(lo, hi):
+        if lo == hi: return nums[lo]
+        pivot = nums[random.randint(lo, hi)]
+        i, j = lo, hi
+        while i <= j:
+            while nums[i] < pivot: i += 1
+            while nums[j] > pivot: j -= 1
+            if i <= j:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1; j -= 1
+        # Now lo..j < pivot, i..hi > pivot
+        if k_idx <= j: return select(lo, j)
+        if k_idx >= i: return select(i, hi)
+        return nums[k_idx]
+
+    return select(0, len(nums)-1)
+</pre></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Practice prompts -->
+    <section class="card" id="practice">
+      <header><span class="qid">PRACTICE</span><span class="qtitle">Practice Variations & Tips</span></header>
+      <div class="body grid2">
+        <div class="tip">
+          <b>Two Sum+</b>: 3‑sum (sort + two pointers), 4‑sum (fix 2 + two pointers), count pairs for a given sum.
+        </div>
+        <div class="tip">
+          <b>Linked Lists</b>: detect cycle (Floyd), reorder list, add two numbers, intersection of two lists.
+        </div>
+        <div class="tip">
+          <b>Sliding Window</b>: min window substring, longest repeating with ≤k replacements.
+        </div>
+        <div class="tip">
+          <b>Trees</b>: LCA in BST, diameter of tree, zigzag level order, validate BST.
+        </div>
+      </div>
+      <p class="note">Use the dry‑runs to teach step transitions on a whiteboard. Encourage students to trace pointers and window bounds explicitly.</p>
+    </section>
+
+    <footer>
+      Built for learners • Ready for classroom demos • <span class="right">© <span class="kb">CareerBrook</span></span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{% extends 'core/base.html' %}
+{% block title %} — Home{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h2>Practical trainings that power careers in Embedded, Security and AI</h2>
+        <p class="lead">Hands-on courses in C/C++, Rust, Python, IoT and Cyber Security — online or on-premise. Small batches, industry projects, and placement support.</p>
+  <p class="cta-row"><a class="btn large" href="/courses/">View Courses</a> <a class="btn ghost" href="/contact/">Request Batch</a></p>
+        <ul class="highlights">
+          <li>Live trainer-led courses</li>
+          <li>College & corporate on-site workshops</li>
+          <li>Project-based learning & mentorship</li>
+        </ul>
+      </div>
+      <div class="hero-media">
+        <div class="card media-card slideshow">
+          {% for photo in session_photos %}
+            <div class="slide"><img src="{{ photo.image.url }}" alt="{{ photo.title }}"></div>
+          {% empty %}
+            <div class="slide"><img src="https://images.unsplash.com/photo-1526378721542-9d1b21ef0b7b?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1" alt="Hands on labs"></div>
+          {% endfor %}
+          <div class="media-caption">Live labs, Raspberry Pi & Jetson Nano sessions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <h3>What we offer</h3>
+    <div class="cards">
+      <div class="card">
+        <h4><img src="/static/img/icon-ai.svg" alt="ai"> Programming Languages</h4>
+        <p>C/C++, Rust, Python with emphasis on systems, performance and safety.</p>
+      </div>
+      <div class="card">
+        <h4><img src="/static/img/icon-security.svg" alt="security"> Security & SDLC</h4>
+        <p>SSL/TLS, cryptography, secure coding, threat modelling and secure SDLC practices.</p>
+      </div>
+      <div class="card">
+        <h4><img src="/static/img/icon-iot.svg" alt="iot"> IoT & Embedded</h4>
+        <p>RPi, ESP32, STM microcontrollers, Jetson Nano for real-world device projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses-grid">
+    <h3>Popular courses</h3>
+    <div class="grid">
+      <div class="course-card card">
+        <img class="course-thumb" src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=10" alt="C/C++">
+        <div class="course-meta"><strong>C/C++ Systems Programming</strong><span class="badge">Popular</span></div>
+        <p>Pointers, memory model, toolchain, debugging and performance tuning.</p>
+      </div>
+      <div class="course-card card">
+        <img class="course-thumb" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=11" alt="Rust">
+        <div class="course-meta"><strong>Rust for Systems</strong><span class="badge">New</span></div>
+        <p>Ownership, safe concurrency, and building resilient low-level software.</p>
+      </div>
+      <div class="course-card card">
+        <img class="course-thumb" src="https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=12" alt="IoT">
+        <div class="course-meta"><strong>Embedded IoT</strong><span class="badge">Hands-on</span></div>
+        <p>Interfacing sensors, RTOS basics, and connected device security.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="videos-materials">
+    <h3>Videos & Materials</h3>
+    <div class="videos">
+      <div class="video card">Intro to Secure Coding — 12m</div>
+      <div class="video card">Getting started with Rust — 18m</div>
+      <div class="video card">IoT with Raspberry Pi — 22m</div>
+    </div>
+  </section>
+
+  <section class="events">
+    <h3>Upcoming Events</h3>
+    <ul class="events-list">
+      {% for n in news %}
+        <li class="event-item"><strong>{{ n.title }}</strong><span class="muted">{{ n.date }}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="gallery">
+    <h3>Photos from past sessions</h3>
+    <div class="gallery-grid">
+      {% for p in session_photos|slice:":6" %}
+        <div class="thumb card"><img src="{{ p.image.url }}" alt="{{ p.title }}"></div>
+      {% empty %}
+        <!-- use Unsplash placeholders to make the gallery attractive when empty -->
+        <div class="thumb card"><img src="https://images.unsplash.com/photo-1508873699372-7ae2e19b9f8f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=4" alt="session"></div>
+        <div class="thumb card"><img src="https://images.unsplash.com/photo-1529338285561-6e3f6a6c14a1?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5" alt="session"></div>
+        <div class="thumb card"><img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6" alt="session"></div>
+      {% endfor %}
+    </div>
+    <div class="gallery-attrib">Photos from Unsplash — free to use</div>
+  </section>
+
+  <section class="testimonials">
+    <h3>Student outcomes</h3>
+    <div class="test-card card">
+      <blockquote>"The Jetson Nano workshop made our team productive in weeks." — Product Engineer, Auto</blockquote>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h3>FAQ</h3>
+    <dl>
+      <dt>Do you provide placement support?</dt>
+      <dd>We mentor and help with interview prep; in some courses we connect students with partner companies.</dd>
+      <dt>Do you travel for on-site trainings?</dt>
+      <dd>Yes — we run in-class trainings for colleges and corporate clients.</dd>
+    </dl>
+  </section>
+
+{% endblock %}

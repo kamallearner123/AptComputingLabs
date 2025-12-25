@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block title %} — Courses{% endblock %}
+{% block content %}
+  <h2>Courses</h2>
+  <p class="lead">Structured, hands-on courses with project deliverables and mentor guidance.</p>
+  <div class="course-list">
+    {% for c in courses %}
+      <div class="course card">
+        <img class="course-thumb" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=13" alt="{{ c }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h4>{{ c }}</h4><span class="badge">Enroll</span></div>
+        <p>Mode: Online / In-class • Level: Beginner → Advanced</p>
+        <ul class="syllabus">
+          <li>Core concepts and practical labs</li>
+          <li>Mini-project and evaluation</li>
+          <li>Q&A and mentorship sessions</li>
+        </ul>
+        <p><a class="btn" href="/contact/">Enroll / Request Batch</a></p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

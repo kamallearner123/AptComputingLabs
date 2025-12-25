@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ org.name }}{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-wrap">
+          <a href="/" class="logo-link"><img src="/static/img/logo.svg" alt="{{ org.name }} logo" class="logo"></a>
+          <div>
+            <h1 class="brand">{{ org.name }}</h1>
+            <p class="tagline">Trainings & solutions in Embedded, Security, IoT, ML and Systems.</p>
+          </div>
+        </div>
+        <nav class="main-nav">
+          <a href="/">Home</a>
+          <a href="/courses/">Courses</a>
+          <a href="/services/">Services</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+        <div class="auth">
+          {% if user.is_authenticated %}
+            <span class="user">{{ user.username }}</span>
+            <a class="btn ghost" href="/accounts/logout/">Logout</a>
+          {% else %}
+            <a class="btn" href="/accounts/login/">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+    <div class="decorative">
+      <img class="blob" src="/static/img/decorative-blob.svg" alt="decorative blob">
+    </div>
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div>Founder: <a href="{{ org.founder_profile }}">{{ org.founder }}</a></div>
+        <div>Email: <a href="mailto:{{ org.email }}">{{ org.email }}</a> | Phone: {{ org.phone }}</div>
+        <div>
+          <a href="{{ org.linkedin }}">LinkedIn</a> • <a href="{{ org.github }}">GitHub</a>
+        </div>
+      </div>
+  <div class="wave"><img src="/static/img/footer-wave.svg" alt="wave"></div>
+    </footer>
+</main>
+  <script src="/static/js/slideshow.js"></script>
+  </body>
+</html>

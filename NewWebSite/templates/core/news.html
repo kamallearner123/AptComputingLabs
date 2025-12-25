@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% block title %} — News & Materials{% endblock %}
+{% block content %}
+  <h2>Materials</h2>
+  <ul>
+    {% for m in materials %}
+      <li>{{ m.title }} ({{ m.type }})</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
